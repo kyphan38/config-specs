@@ -19,11 +19,11 @@ pipeline {
           classpath: [],
           sandbox: true,
           script:  // equals or == accepted
-          """
+          '''
             if (ACTION.equals("put")) {
               return "<input name='SECRET_KEY' value='' class='setting-input' type='text'>"
             }
-          """
+          '''
         ],
         fallbackScript: [
           classpath: [],
@@ -44,11 +44,36 @@ pipeline {
           classpath: [],
           sandbox: true,
           script:  // equals or == accepted
-          """
+          '''
             if (ACTION.equals("put")) {
               return "<input name='SECRET_VALUE' value='' class='setting-input' type='text'>"
             }
-          """
+          '''
+        ],
+        fallbackScript: [
+          classpath: [],
+          sandbox: true,
+          script:
+            'return "error"'
+        ]
+      ]
+    )
+
+    activeChoiceHtml  (
+      name: 'SECRET_PATH',
+      choiceType: 'ET_FORMATTED_HTML',
+      referencedParameters: 'ACTION', 
+      script: [
+        $class: 'GroovyScript',
+        script: [
+          classpath: [],
+          sandbox: true,
+          script:  // equals or == accepted
+          '''
+            if (ACTION.equals("get")) {
+              return "<input name='SECRET_PATH' value='' class='setting-input' type='text'>"
+            }
+          '''
         ],
         fallbackScript: [
           classpath: [],
@@ -155,8 +180,10 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        echo "Showing ${params.ACTION}"
-        echo "Showing ${params.SECRET_VALUE}"
+        echo "Display ${params.ACTION}"
+        echo "Display ${params.SECRET_PATH}"
+        echo "Display ${params.SECRET_KEY}"
+        echo "Display ${params.SECRET_VALUE}"
       }
     }
   }
