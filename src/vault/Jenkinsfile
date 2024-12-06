@@ -1,6 +1,36 @@
 pipeline {
   agent any
 
+  parameters {
+    // choice (
+    //   name: 'ACTION'.
+    //   choices: ['get', 'put'],
+    //   description: 'Use get for existing secret and push for creating a new one!'
+    // )
+
+    activeChoiceHtml(
+      name: 'States',
+      description: 'Select a state option',
+      choiceType: 'PT_SINGLE_SELECT',
+      filterable: true, 
+      script: [
+        $class: 'GroovyScript',
+        script: [
+          classpath: [],
+          sandbox: false,
+          script:
+            'return ["A State", "B State", "C State"]'
+        ],
+        fallbackScript: [
+          classpath: [],
+          sandbox: false,
+          script:
+            'return ["Error"]'
+        ]
+      ]
+    )
+  }
+
   stages {
     stage('Build') {
       steps {
