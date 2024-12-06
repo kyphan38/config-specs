@@ -5,7 +5,7 @@ pipeline {
 
     choice (
       name: 'ACTION',
-      choices: ["get", "put"],
+      choices: ['get', 'put'],
       description: 'Select a action'
     )
 
@@ -21,7 +21,7 @@ pipeline {
           sandbox: true,
           script:  // equals or == accepted
           '''
-            if (ACTION.equals("put")) {
+            if (ACTION=="put") {
               return "<input name='SECRET_KEY' value='' class='setting-input' type='text'>"
             } else {
               return ""}
@@ -47,7 +47,7 @@ pipeline {
           sandbox: true,
           script:  // equals or == accepted
           '''
-            if (ACTION.equals("put")) {
+            if (ACTION=="put") {
               return "<input name='SECRET_VALUE' value='' class='setting-input' type='text'>"
             } else {
               return ""}
@@ -73,7 +73,7 @@ pipeline {
           sandbox: true,
           script:  // equals or == accepted
           '''
-            if (ACTION.equals("get")) {
+            if (ACTION=="get") {
               return "<input name='SECRET_PATH' value='' class='setting-input' type='text'>"
             } else {
               return ""
