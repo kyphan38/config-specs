@@ -33,7 +33,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        echo 'Showing ${params.States}'
+        echo "Showing ${params.States}"
       }
     }
   }
