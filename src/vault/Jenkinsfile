@@ -34,7 +34,7 @@ pipeline {
     activeChoiceHtml(
       name: 'Cities',
       description: 'Select a city option',
-      choiceType: 'ET_FORMATTED_HIDDEN_HTML',
+      choiceType: 'ET_FORMATTED_HTML',
       referencedParameters: 'States', 
       script: [
         $class: 'GroovyScript',
@@ -44,7 +44,7 @@ pipeline {
           script:
             '''
               if (States.equals("A_State")) {
-                "return "<p>error1</p>""
+                return "<input name='Cities' value='N/A' class='setting-input' type='text'>"
               }
               else if (States.equals("B_State")) {
                 "return "<p>error2</p>"
