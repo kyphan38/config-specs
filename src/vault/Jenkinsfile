@@ -64,8 +64,7 @@ pipeline {
           return "<input name=\'SECRET_PATH\' value=\'\' class=\'setting-input\' type=\'text\'>"
       ''']
     ])
-  }
-
+  
     // Option 1
     // activeChoice(
     //   name: 'States',
