@@ -23,7 +23,7 @@ pipeline {
           script:  // equals or == accepted
           '''
             if (ACTION=="put") {
-              return "<input name='SECRET_KEY' value='' class='setting-input' type='text'>"
+              return "<input name='SECRET_KEY_1' value='' class='setting-input' type='text'>"
             } else {
               return ""}
           '''
@@ -50,7 +50,7 @@ pipeline {
           script:  // equals or == accepted
           '''
             if (ACTION=="put") {
-              return "<input name='SECRET_VALUE' value='' class='setting-input' type='text'>"
+              return "<input name='SECRET_VALUE_1' value='' class='setting-input' type='text'>"
             } else {
               return ""}
           '''
@@ -77,7 +77,7 @@ pipeline {
           script:  // equals or == accepted
           '''
             if (ACTION=="get") {
-              return "<input name='SECRET_PATH' value='' class='setting-input' type='text'>"
+              return "<input name='SECRET_PATH_1' value='' class='setting-input' type='text'>"
             } else {
               'return "<p>error</p>"'
             }
@@ -97,9 +97,9 @@ pipeline {
     stage('Build') {
       steps {
         echo "Display ${params.ACTION}"
-        echo "Display ${params.SECRET_PATH}"
-        echo "Display ${params.SECRET_KEY}"
-        echo "Display ${params.SECRET_VALUE}"
+        echo "Display ${params.SECRET_PAT_1H}"
+        echo "Display ${params.SECRET_KEY_1}"
+        echo "Display ${params.SECRET_VALUE_1}"
       }
     }
   }
