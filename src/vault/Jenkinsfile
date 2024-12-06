@@ -3,33 +3,111 @@ pipeline {
 
   parameters {
 
-    choice (
+    choice(
       name: 'ACTION',
-      choices: ["get", "put"],
-      description: 'Select a action'
+      choices: ['get', 'put'],
+      description: 'Select an action'
     )
 
-    // Display
-    activeChoiceHtml (name: 'SECRET_KEY', choiceType: 'ET_FORMATTED_HTML', referencedParameters: 'ACTION', script: [$class: 'GroovyScript', script: [classpath: [], sandbox: true, script: '''
-      if (ACTION.equals("put")) {
-        return "<input name='SECRET_KEY' value='a' class='setting-input' type='text'>"
-      }
-      return ""'''
-    ]])
+    activeChoiceHtml(
+      name: 'SECRET_KEY',
+      choiceType: 'ET_FORMATTED_HTML',
+      referencedParameters: 'ACTION',
+      script: [
+        $class: 'GroovyScript',
+        script: [
+          classpath: [],
+          sandbox: true,
+          script: '''
+            if (ACTION.equals("put")) {
+              return "<input name='SECRET_KEY' value='' class='setting-input' type='text'>"
+            }
+            return ""
+          '''
+        ]
+      ],
+      fallbackScript: [
+        $class: 'GroovyScript',
+        script: [
+          classpath: [],
+          sandbox: true,
+          script: '''
+            return "<p>Error rendering SECRET_KEY input field</p>"
+          '''
+        ]
+      ]
+    )
 
-    activeChoiceHtml (name: 'SECRET_VALUE', choiceType: 'ET_FORMATTED_HTML', referencedParameters: 'ACTION', script: [$class: 'GroovyScript', script: [classpath: [], sandbox: true, script: '''
-      if (ACTION.equals("put")) {
-        return "<input name='SECRET_VALUE' value='b' class='setting-input' type='text'>"
-      }
-      return ""'''
-    ]])
+    activeChoiceHtml(
+      name: 'SECRET_VALUE',
+      choiceType: 'ET_FORMATTED_HTML',
+      referencedParameters: 'ACTION',
+      script: [
+        $class: 'GroovyScript',
+        script: [
+          classpath: [],
+          sandbox: true,
+          script: '''
+            if (ACTION.equals("put")) {
+              return "<input name='SECRET_VALUE' value='' class='setting-input' type='text'>"
+            }
+            return ""
+          '''
+        ]
+      ],
+      fallbackScript: [
+        $class: 'GroovyScript',
+        script: [
+          classpath: [],
+          sandbox: true,
+          script: '''
+            return "<p>Error rendering SECRET_VALUE input field</p>"
+          '''
+        ]
+      ]
+    )
 
-    activeChoiceHtml (name: 'SECRET_PATH', choiceType: 'ET_FORMATTED_HTML', referencedParameters: 'ACTION', script: [$class: 'GroovyScript', script: [classpath: [], sandbox: true, script: '''
-      if (ACTION.equals("get")) {
-        return "<input name='SECRET_PATH' value='c' class='setting-input' type='text'>"
+    activeChoiceHtml(
+      name: 'SECRET_PATH',
+      choiceType: 'ET_FORMATTED_HTML',
+      referencedParameters: 'ACTION',
+      script: [
+        $class: 'GroovyScript',
+        script: [
+          classpath: [],
+          sandbox: true,
+          script: '''
+            if (ACTION.equals("get")) {
+              return "<input name='SECRET_PATH' value='' class='setting-input' type='text'>"
+            }
+            return ""
+          '''
+        ]
+      ],
+      fallbackScript: [
+        $class: 'GroovyScript',
+        script: [
+          classpath: [],
+          sandbox: true,
+          script: '''
+            return "<p>Error rendering SECRET_PATH input field</p>"
+          '''
+        ]
+      ]
+    )
+  }
+
+  stages {
+    stage('Build') {
+      steps {
+        echo "Display ACTION: ${params.ACTION}"
+        echo "Display SECRET_PATH: ${params.SECRET_PATH}"
+        echo "Display SECRET_KEY: ${params.SECRET_KEY}"
+        echo "Display SECRET_VALUE: ${params.SECRET_VALUE}"
       }
-      return ""'''
-    ]])
+    }
+  }
+}
 
     // Option 1
     // activeChoice(
@@ -117,17 +195,3 @@ pipeline {
     //     ]
     //   ]
     // )
-
-  }
-
-  stages {
-    stage('Build') {
-      steps {
-        echo "Display ${params.ACTION}"
-        echo "Display ${params.SECRET_PATH}"
-        echo "Display ${params.SECRET_KEY}"
-        echo "Display ${params.SECRET_VALUE}"
-      }
-    }
-  }
-}
