@@ -13,7 +13,6 @@ pipeline {
       description: 'Select a state option',
       choiceType: 'PT_MULTI_SELECT',
       randomName: 'choice-parameter-843794300545400',
-      referencedParameters: 'states', 
       script: [
         $class: 'GroovyScript',
         script: [
