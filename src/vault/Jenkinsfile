@@ -41,24 +41,15 @@ pipeline {
         script: [
           classpath: [],
           sandbox: true,
-          script: 
+          script:  // equals or == accepted
           '''
             if (States.equals("A_State")) {
-              return "<input name='Cities' value='N/A' class='setting-input' type='text'>"
+              return "<input name='Cities_A' value='N/A' class='setting-input' type='text'>"
             }
             else if (States.equals("B_State")) {
-              return "<p>B State Cities: B_Cities1, B_Cities2, B_Cities3, B_Cities4</p>"
+              return "<input name='Cities_B' value='N/A' class='setting-input' type='text'>"
             }
           '''
-          // script:
-          //   '''
-          //     if (States.equals("A_State")) {
-          //       return "<input name='Cities' value='N/A' class='setting-input' type='text'>"
-          //     }
-          //     else if (States.equals("B_State")) {
-          //       "return "<p>error2</p>"
-          //     }
-          //   '''
         ],
         fallbackScript: [
           classpath: [],
