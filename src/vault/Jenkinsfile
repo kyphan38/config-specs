@@ -44,10 +44,10 @@ pipeline {
           script:
             '''
               if (States.equals("A_State")) {
-                return "<input name="value" value="A_State" class="setting-input" type="text">" 
+                "return "<p>error</p>""
               }
               else if (States.equals("B_State")) {
-                return "<input name="value" value="A_State" class="setting-input" type="text">" 
+                "return "<p>error</p>"
               }
             '''
         ],
