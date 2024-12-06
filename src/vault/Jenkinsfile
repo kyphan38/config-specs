@@ -8,7 +8,7 @@ pipeline {
     //   description: 'Use get for existing secret and push for creating a new one!'
     // )
 
-    activeChoiceHtml(
+    activeChoice(
       name: 'States',
       description: 'Select a state option',
       choiceType: 'PT_MULTI_SELECT',
