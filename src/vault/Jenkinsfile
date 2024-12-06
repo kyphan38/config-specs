@@ -36,10 +36,13 @@ pipeline {
           sandbox: true,
           script:
             '''
-              if (States.contains("A_State")) {
+              if (States == null || States.isEmpty()) {
+                return ["Stupid"]
+              } 
+              else if (States.equals("A_State")) {
                 return ["A_Cities1","A_Cities2","A_Cities3","A_Cities4","A_Cities5","A_Cities6"]
               }
-              else if (States.contains("B_State")) {
+              else if (States.equals("B_State")) {
                 return ["B_Cities1","B_Cities2","B_Cities3","B_Cities4"]
             '''
         ],
