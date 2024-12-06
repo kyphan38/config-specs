@@ -25,11 +25,12 @@ pipeline {
       ]
     )
     
-    activeChoice(
+    activeChoiceReactive(
       name: 'Cities',
       description: 'Select a city option',
       choiceType: 'PT_MULTI_SELECT',
       // referencedParameters: 'States', 
+      reference: 'States', 
       script: [
         $class: 'GroovyScript',
         script: [
