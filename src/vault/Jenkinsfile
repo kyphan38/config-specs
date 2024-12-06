@@ -55,7 +55,7 @@ pipeline {
           classpath: [],
           sandbox: false,
           script:
-            'return ["Error for Cities"]'
+            'return "<p>error</p>"'
         ]
       ]
     )
