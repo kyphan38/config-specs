@@ -5,7 +5,7 @@ pipeline {
 
     choice (
       name: 'ACTION',
-      choices: ["get", "put"],
+      choices: ["get"],
       description: 'Select a action'
     )
 
@@ -14,6 +14,8 @@ pipeline {
       $class: 'GroovyScript', script: [classpath: [], sandbox: true, script: '''
         if (ACTION.equals("put")) 
           return "<input name=\'SECRET_KEY\' value=\'\' class=\'setting-input\' type=\'text\'>"
+        else 
+          return ""
       ''']
     ])
 
@@ -21,6 +23,8 @@ pipeline {
       $class: 'GroovyScript', script: [classpath: [], sandbox: true, script: '''
         if (ACTION.equals("put")) 
           return "<input name=\'SECRET_VALUE\' value=\'\' class=\'setting-input\' type=\'text\'>"
+        else 
+          return ""
       ''']
     ])
 
@@ -28,6 +32,8 @@ pipeline {
       $class: 'GroovyScript', script: [classpath: [], sandbox: true, script: '''
         if (ACTION.equals("get")) 
           return "<input name=\'SECRET_PATH\' value=\'\' class=\'setting-input\' type=\'text\'>"
+        else 
+          return ""
       ''']
     ])
 
@@ -35,6 +41,8 @@ pipeline {
     activeChoiceHtml(name: 'SECRET_KEY', choiceType: 'ET_FORMATTED_HIDDEN_HTML', referencedParameters: 'ACTION', script: [
       $class: 'GroovyScript', script: [classpath: [], sandbox: false, script: '''
         if (ACTION.equals("get")) 
+          return "<input name=\'SECRET_KEY\' value=\'\' class=\'setting-input\' type=\'text\'>"
+        else 
           return ""
       ''']
     ])
@@ -42,6 +50,8 @@ pipeline {
     activeChoiceHtml(name: 'SECRET_VALUE', choiceType: 'ET_FORMATTED_HIDDEN_HTML', referencedParameters: 'ACTION', script: [
       $class: 'GroovyScript', script: [classpath: [], sandbox: false, script: '''
         if (ACTION.equals("get")) 
+          return "<input name=\'SECRET_VALUE\' value=\'\' class=\'setting-input\' type=\'text\'>"
+        else 
           return ""
       ''']
     ])
@@ -49,6 +59,8 @@ pipeline {
     activeChoiceHtml(name: 'SECRET_PATH', choiceType: 'ET_FORMATTED_HIDDEN_HTML', referencedParameters: 'ACTION', script: [
       $class: 'GroovyScript', script: [classpath: [], sandbox: false, script: '''
         if (ACTION.equals("put")) 
+          return "<input name=\'SECRET_PATH\' value=\'\' class=\'setting-input\' type=\'text\'>"
+        else 
           return ""
       ''']
     ])
