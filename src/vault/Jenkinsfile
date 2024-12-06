@@ -12,17 +12,19 @@ pipeline {
       name: 'States',
       description: 'Select a state option',
       choiceType: 'PT_MULTI_SELECT',
+      // filterLength: 1, 
+      // filterable: true, 
       script: [
         $class: 'GroovyScript',
         script: [
           classpath: [],
-          sandbox: false,
+          sandbox: true,
           script:
             'return ["A State", "B State", "C State"]'
         ],
         fallbackScript: [
           classpath: [],
-          sandbox: false,
+          sandbox: true,
           script:
             'return ["Error"]'
         ]
