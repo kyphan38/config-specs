@@ -41,14 +41,13 @@ pipeline {
         script: [
           classpath: [],
           sandbox: true,
-          script: '''
-            if (States == "A_State") {
+          script: 
+          '''
+            if (States.equals("A_State")) {
               return "<input name='Cities' value='N/A' class='setting-input' type='text'>"
             }
-            else if (States == "B_State") {
+            else if (States.equals("B_State")) {
               return "<p>B State Cities: B_Cities1, B_Cities2, B_Cities3, B_Cities4</p>"
-            } else {
-              return "<p>Error: Invalid State</p>"
             }
           '''
           // script:
@@ -65,7 +64,7 @@ pipeline {
           classpath: [],
           sandbox: true,
           script:
-            'return "<p>Error: No Cities Available</p>"'
+            'return "<p>error</p>"'
         ]
       ]
     )
