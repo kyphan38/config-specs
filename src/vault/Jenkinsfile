@@ -3,7 +3,6 @@ pipeline {
 
   parameters {
 
-    // Work
     activeChoice(
       name: 'States',
       description: 'Select a state option',
@@ -30,7 +29,6 @@ pipeline {
       description: 'Select a city option',
       choiceType: 'PT_SINGLE_SELECT',
       referencedParameters: 'States', 
-      // reference: 'States',
       script: [
         $class: 'GroovyScript',
         script: [
