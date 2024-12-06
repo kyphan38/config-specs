@@ -23,7 +23,8 @@ pipeline {
             'return ["Error for States"]'
         ]
       ]
-    ),
+    )
+    
     activeChoice(
       name: 'Cities',
       description: 'Select a city option',
@@ -57,6 +58,7 @@ pipeline {
     stage('Build') {
       steps {
         echo "Showing ${params.States}"
+        echo "Showing ${params.Cities}"
       }
     }
   }
