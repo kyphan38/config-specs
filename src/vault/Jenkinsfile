@@ -8,7 +8,6 @@ pipeline {
       name: 'States',
       description: 'Select a state option',
       choiceType: 'PT_SINGLE_SELECT',
-      filterable: true,
       script: [
         $class: 'GroovyScript',
         script: [
@@ -31,6 +30,7 @@ pipeline {
       description: 'Select a city option',
       choiceType: 'PT_SINGLE_SELECT',
       referencedParameters: 'States', 
+      // reference: 'States',
       script: [
         $class: 'GroovyScript',
         script: [
@@ -38,10 +38,10 @@ pipeline {
           sandbox: true,
           script:
             '''
-              if (States.equals("A_State")) {
+              if (States.contains("A_State")) {
                 return ["A_Cities1","A_Cities2","A_Cities3","A_Cities4","A_Cities5","A_Cities6"]
               }
-              else if (States.equals("B_State")) {
+              else if (States.contains("B_State")) {
                 return ["B_Cities1","B_Cities2","B_Cities3","B_Cities4"]
             '''
         ],
