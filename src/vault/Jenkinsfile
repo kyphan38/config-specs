@@ -12,6 +12,7 @@ pipeline {
       name: 'States',
       description: 'Select a state option',
       choiceType: 'PT_MULTI_SELECT',
+      referencedParameters: 'states', 
       script: [
         $class: 'GroovyScript',
         script: [
@@ -33,7 +34,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        echo 'Showing ${States}'
+        echo 'Showing ${states}'
       }
     }
   }
