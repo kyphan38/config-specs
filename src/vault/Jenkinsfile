@@ -44,10 +44,10 @@ pipeline {
           script:
             '''
               if (States.equals("A_State")) {
-                "return "<p>error</p>""
+                "return "<p>error1</p>""
               }
               else if (States.equals("B_State")) {
-                "return "<p>error</p>"
+                "return "<p>error2</p>"
               }
             '''
         ],
