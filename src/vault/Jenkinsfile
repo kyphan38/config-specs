@@ -40,28 +40,19 @@ pipeline {
     // Hidden
     activeChoiceHtml(name: 'SECRET_KEY', choiceType: 'ET_FORMATTED_HIDDEN_HTML', referencedParameters: 'ACTION', script: [
       $class: 'GroovyScript', script: [classpath: [], sandbox: false, script: '''
-        if (ACTION.equals("get")) 
-          return "<input name=\'SECRET_KEY\' value=\'\' class=\'setting-input\' type=\'text\'>"
-        else 
-          return ""
+
       ''']
     ])
 
     activeChoiceHtml(name: 'SECRET_VALUE', choiceType: 'ET_FORMATTED_HIDDEN_HTML', referencedParameters: 'ACTION', script: [
       $class: 'GroovyScript', script: [classpath: [], sandbox: false, script: '''
-        if (ACTION.equals("get")) 
-          return "<input name=\'SECRET_VALUE\' value=\'\' class=\'setting-input\' type=\'text\'>"
-        else 
-          return ""
+
       ''']
     ])
 
     activeChoiceHtml(name: 'SECRET_PATH', choiceType: 'ET_FORMATTED_HIDDEN_HTML', referencedParameters: 'ACTION', script: [
       $class: 'GroovyScript', script: [classpath: [], sandbox: false, script: '''
-        if (ACTION.equals("put")) 
-          return "<input name=\'SECRET_PATH\' value=\'\' class=\'setting-input\' type=\'text\'>"
-        else 
-          return ""
+
       ''']
     ])
 
