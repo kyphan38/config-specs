@@ -3,68 +3,62 @@ pipeline {
 
   parameters {
 
-    // activeChoice(
-    properties([
-      parameters([
-        [ $class: 'ChoiceParameter',
-            choiceType: 'PT_SINGLE_SELECT',
-            name: 'States',
-            description: 'Select a state option',
-            script: [
-              $class: 'GroovyScript',
-              script: [
-                classpath: [],
-                sandbox: true,
-                script:
-                  'return ["A_State", "B_State"]'
-              ],
-              fallbackScript: [
-                classpath: [],
-                sandbox: true,
-                script:
-                  'return ["Error for States"]'
-              ]
-            ]
-
+    activeChoice(
+      name: 'States',
+      description: 'Select a state option',
+      choiceType: 'PT_SINGLE_SELECT',
+      script: [
+        $class: 'GroovyScript',
+        script: [
+          classpath: [],
+          sandbox: true,
+          script:
+            'return ["A_State", "B_State"]'
+        ],
+        fallbackScript: [
+          classpath: [],
+          sandbox: true,
+          script:
+            'return ["Error for States"]'
         ]
-      ])
-    ])
-      
+      ]
+    )
     
-    // reactiveChoice(
-    //   name: 'Cities',
-    //   description: 'Select a city option',
-    //   choiceType: 'PT_SINGLE_SELECT',
-    //   referencedParameters: 'States', 
-    //   script: [
-    //     $class: 'GroovyScript',
-    //     script: [
-    //       classpath: [],
-    //       sandbox: true,
-    //       script:
-    //         """
-    //           if (${States}.contains("A_State")) {
-    //             return ["A_Cities1","A_Cities2","A_Cities3","A_Cities4","A_Cities5","A_Cities6"]
-    //           }
-    //           else if (${States}.contains("B_State")) {
-    //             return ["B_Cities1","B_Cities2","B_Cities3","B_Cities4"]
-    //         """
-    //     ],
-    //     fallbackScript: [
-    //       classpath: [],
-    //       sandbox: true,
-    //       script:
-    //         "return ['Error for Cities ${States}']"
-    //     ]
-    //   ]
-    // )
+    reactiveChoice(
+      name: 'Cities',
+      description: 'Select a city option',
+      choiceType: 'PT_SINGLE_SELECT',
+      referencedParameters: 'States', 
+      script: [
+        $class: 'GroovyScript',
+        script: [
+          classpath: [],
+          sandbox: true,
+          script:
+            '''
+              if (States.equals("A_State")) {
+                return ["A_Cities1","A_Cities2","A_Cities3","A_Cities4","A_Cities5","A_Cities6"]
+              }
+              else if (States.equals("B_State")) {
+                return ["B_Cities1","B_Cities2","B_Cities3","B_Cities4"]
+              }
+            '''
+        ],
+        fallbackScript: [
+          classpath: [],
+          sandbox: true,
+          script:
+            'return ["Error for Cities"]'
+        ]
+      ]
+    )
   }
 
   stages {
     stage('Build') {
       steps {
         echo "Showing ${params.States}"
-        // echo "Showing ${params.Cities}"
+        echo "Showing ${params.Cities}"
       }
     }
   }
