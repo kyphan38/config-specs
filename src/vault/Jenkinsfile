@@ -7,7 +7,7 @@ pipeline {
     activeChoice(
       name: 'States',
       description: 'Select a state option',
-      choiceType: 'PT_MULTI_SELECT',
+      choiceType: 'PT_SINGLE_SELECT',
       script: [
         $class: 'GroovyScript',
         script: [
@@ -28,7 +28,7 @@ pipeline {
     reactiveChoice(
       name: 'Cities',
       description: 'Select a city option',
-      choiceType: 'PT_MULTI_SELECT',
+      choiceType: 'PT_SINGLE_SELECT',
       referencedParameters: 'States', 
       script: [
         $class: 'GroovyScript',
