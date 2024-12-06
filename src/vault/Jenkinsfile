@@ -14,7 +14,7 @@ pipeline {
       name: 'SECRET_KEY',
       choiceType: 'ET_FORMATTED_HTML',
       referencedParameters: 'ACTION',
-      omitValueField: true 
+      omitValueField: true, 
       script: [
         $class: 'GroovyScript',
         script: [
@@ -41,7 +41,7 @@ pipeline {
       name: 'SECRET_VALUE',
       choiceType: 'ET_FORMATTED_HTML',
       referencedParameters: 'ACTION', 
-      omitValueField: true
+      omitValueField: true,
       script: [
         $class: 'GroovyScript',
         script: [
@@ -68,7 +68,7 @@ pipeline {
       name: 'SECRET_PATH',
       choiceType: 'ET_FORMATTED_HTML',
       referencedParameters: 'ACTION', 
-      omitValueField: true
+      omitValueField: true,
       script: [
         $class: 'GroovyScript',
         script: [
