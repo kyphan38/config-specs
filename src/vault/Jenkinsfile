@@ -18,7 +18,7 @@ pipeline {
         ],
         fallbackScript: [
           classpath: [],
-          sandbox: true,
+          sandbox: false,
           script:
             'return ["Error for States"]'
         ]
@@ -46,7 +46,7 @@ pipeline {
         ],
         fallbackScript: [
           classpath: [],
-          sandbox: true,
+          sandbox: false,
           script:
             'return ["Error for Cities"]'
         ]
