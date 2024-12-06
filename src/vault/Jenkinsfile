@@ -34,13 +34,13 @@ pipeline {
     activeChoiceHtml(
       name: 'Cities',
       description: 'Select a city option',
-      choiceType: 'ET_FORMATTED_HTML'
+      choiceType: 'ET_FORMATTED_HTML',
       referencedParameters: 'States', 
       script: [
         $class: 'GroovyScript',
         script: [
           classpath: [],
-          sandbox: true,
+          sandbox: false,
           script:
             '''
               if (States.equals("A_State")) {
@@ -53,7 +53,7 @@ pipeline {
         ],
         fallbackScript: [
           classpath: [],
-          sandbox: true,
+          sandbox: false,
           script:
             'return ["Error for Cities"]'
         ]
