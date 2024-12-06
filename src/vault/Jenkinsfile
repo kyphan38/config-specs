@@ -2,12 +2,8 @@ pipeline {
   agent any
 
   parameters {
-    // choice (
-    //   name: 'ACTION'.
-    //   choices: ['get', 'put'],
-    //   description: 'Use get for existing secret and push for creating a new one!'
-    // )
 
+    // Work
     activeChoice(
       name: 'States',
       description: 'Select a state option',
@@ -18,16 +14,43 @@ pipeline {
           classpath: [],
           sandbox: true,
           script:
-            'return ["A State", "B State", "C State"]'
+            'return ["A_State", "B_State", "C_State"]'
         ],
         fallbackScript: [
           classpath: [],
           sandbox: true,
           script:
-            'return ["Error"]'
+            'return ["Error for States"]'
         ]
       ]
-    )
+    ),
+    activeChoice(
+      name: 'Cities',
+      description: 'Select a city option',
+      choiceType: 'PT_MULTI_SELECT',
+      referencedParameters: 'States', 
+      script: [
+        $class: 'GroovyScript',
+        script: [
+          classpath: [],
+          sandbox: true,
+          script:
+            '''
+              if (States.equals("A_State")) {
+                return ["A_Cities1","A_Cities2","A_Cities3","A_Cities4","A_Cities5","A_Cities6"]
+              }
+              else if (States.equals("B_State")) {
+                return ["B_Cities1","B_Cities2","B_Cities3","B_Cities4"]
+            '''
+        ],
+        fallbackScript: [
+          classpath: [],
+          sandbox: true,
+          script:
+            'return ["Error for Cities"]'
+        ]
+      ]
+    ),
   }
 
   stages {
