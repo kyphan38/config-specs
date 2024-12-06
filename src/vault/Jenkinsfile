@@ -23,7 +23,8 @@ pipeline {
           '''
             if (ACTION.equals("put")) {
               return "<input name='SECRET_KEY' value='' class='setting-input' type='text'>"
-            } 
+            } else {
+              return ""}
           '''
         ],
         fallbackScript: [
