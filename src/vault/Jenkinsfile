@@ -8,17 +8,18 @@ pipeline {
       name: 'States',
       description: 'Select a state option',
       choiceType: 'PT_SINGLE_SELECT',
+      filterable: true,
       script: [
         $class: 'GroovyScript',
         script: [
           classpath: [],
           sandbox: true,
           script:
-            'return ["A_State", "B_State", "C_State"]'
+            'return ["A_State", "B_State"]'
         ],
         fallbackScript: [
           classpath: [],
-          sandbox: false,
+          sandbox: true,
           script:
             'return ["Error for States"]'
         ]
@@ -46,7 +47,7 @@ pipeline {
         ],
         fallbackScript: [
           classpath: [],
-          sandbox: false,
+          sandbox: true,
           script:
             'return ["Error for Cities"]'
         ]
