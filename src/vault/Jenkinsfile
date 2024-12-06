@@ -32,7 +32,7 @@ pipeline {
     )
 
     activeChoiceHtml(
-      name: 'Cities'
+      name: 'Cities',
       description: 'Select a city option',
       choiceType: 'ET_FORMATTED_HTML'
       referencedParameters: 'States', 
