@@ -3,33 +3,33 @@ pipeline {
 
   parameters {
     // Option 1
-    // activeChoice(
-    //   name: 'States',
-    //   description: 'Select a state option',
-    //   choiceType: 'PT_SINGLE_SELECT',
-    //   script: [
-    //     $class: 'GroovyScript',
-    //     script: [
-    //       classpath: [],
-    //       sandbox: true,
-    //       script:
-    //         'return ["A_State", "B_State"]'
-    //     ],
-    //     fallbackScript: [
-    //       classpath: [],
-    //       sandbox: true,
-    //       script:
-    //         'return ["Error for States"]'
-    //     ]
-    //   ]
-    // )
+    activeChoice(
+      name: 'States',
+      description: 'Select a state option',
+      choiceType: 'PT_SINGLE_SELECT',
+      script: [
+        $class: 'GroovyScript',
+        script: [
+          classpath: [],
+          sandbox: true,
+          script:
+            'return ["A_State", "B_State"]'
+        ],
+        fallbackScript: [
+          classpath: [],
+          sandbox: true,
+          script:
+            'return ["Error for States"]'
+        ]
+      ]
+    )
     
     // Option 2
-    choice (
-      name: 'States',
-      choices: ["A_State", "B_State"],
-      description: 'Select a state option'
-    )
+    // choice (
+    //   name: 'States',
+    //   choices: ["A_State", "B_State"],
+    //   description: 'Select a state option'
+    // )
 
     activeChoiceHtml(
       name: 'Cities',
