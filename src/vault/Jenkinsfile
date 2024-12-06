@@ -40,7 +40,7 @@ pipeline {
         $class: 'GroovyScript',
         script: [
           classpath: [],
-          sandbox: false,
+          sandbox: true,
           script:
             '''
               if (States.equals("A_State")) {
@@ -53,7 +53,7 @@ pipeline {
         ],
         fallbackScript: [
           classpath: [],
-          sandbox: false,
+          sandbox: true,
           script:
             'return "<p>error</p>"'
         ]
