@@ -12,7 +12,6 @@ pipeline {
       name: 'States',
       description: 'Select a state option',
       choiceType: 'PT_SINGLE_SELECT',
-      filterable: true, 
       script: [
         $class: 'GroovyScript',
         script: [
