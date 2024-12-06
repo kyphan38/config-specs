@@ -57,7 +57,7 @@ pipeline {
           classpath: [],
           sandbox: true,
           script:
-            'return "error"'
+            'return "<p>error</p>"'
         ]
       ]
     )
@@ -76,7 +76,7 @@ pipeline {
             if (ACTION=="get") {
               return "<input name='SECRET_PATH' value='' class='setting-input' type='text'>"
             } else {
-              return ""
+              'return "<p>error</p>"'
             }
           '''
         ],
@@ -84,7 +84,7 @@ pipeline {
           classpath: [],
           sandbox: true,
           script:
-            'return "error"'
+            'return "<p>error</p>"'
         ]
       ]
     )
