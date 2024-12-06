@@ -3,33 +3,33 @@ pipeline {
 
   parameters {
     // Option 1
-    activeChoice(
-      name: 'States',
-      description: 'Select a state option',
-      choiceType: 'PT_SINGLE_SELECT',
-      script: [
-        $class: 'GroovyScript',
-        script: [
-          classpath: [],
-          sandbox: true,
-          script:
-            'return ["A_State", "B_State"]'
-        ],
-        fallbackScript: [
-          classpath: [],
-          sandbox: true,
-          script:
-            'return ["Error for States"]'
-        ]
-      ]
-    )
+    // activeChoice(
+    //   name: 'States',
+    //   description: 'Select a state option',
+    //   choiceType: 'PT_SINGLE_SELECT',
+    //   script: [
+    //     $class: 'GroovyScript',
+    //     script: [
+    //       classpath: [],
+    //       sandbox: true,
+    //       script:
+    //         'return ["A_State", "B_State"]'
+    //     ],
+    //     fallbackScript: [
+    //       classpath: [],
+    //       sandbox: true,
+    //       script:
+    //         'return ["Error for States"]'
+    //     ]
+    //   ]
+    // )
     
     // Option 2
-    // choice (
-    //   name: 'States',
-    //   choices: ["A_State", "B_State"],
-    //   description: 'Select a state option'
-    // )
+    choice (
+      name: 'States',
+      choices: ["A_State", "B_State"],
+      description: 'Select a state option'
+    )
 
     activeChoiceHtml(
       name: 'Cities',
@@ -41,21 +41,31 @@ pipeline {
         script: [
           classpath: [],
           sandbox: true,
-          script:
-            '''
-              if (States.equals("A_State")) {
-                return "<input name='Cities' value='N/A' class='setting-input' type='text'>"
-              }
-              else if (States.equals("B_State")) {
-                "return "<p>error2</p>"
-              }
-            '''
+          script: '''
+            if (States == "A_State") {
+              return "<input name='Cities' value='N/A' class='setting-input' type='text'>"
+            }
+            else if (States == "B_State") {
+              return "<p>B State Cities: B_Cities1, B_Cities2, B_Cities3, B_Cities4</p>"
+            } else {
+              return "<p>Error: Invalid State</p>"
+            }
+          '''
+          // script:
+          //   '''
+          //     if (States.equals("A_State")) {
+          //       return "<input name='Cities' value='N/A' class='setting-input' type='text'>"
+          //     }
+          //     else if (States.equals("B_State")) {
+          //       "return "<p>error2</p>"
+          //     }
+          //   '''
         ],
         fallbackScript: [
           classpath: [],
           sandbox: true,
           script:
-            'return "<p>error</p>"'
+            'return "<p>Error: No Cities Available</p>"'
         ]
       ]
     )
