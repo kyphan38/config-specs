@@ -11,7 +11,7 @@ pipeline {
     activeChoiceHtml(
       name: 'States',
       description: 'Select a state option',
-      choiceType: 'PT_SINGLE_SELECT',
+      choiceType: 'PT_MULTI_SELECT',
       script: [
         $class: 'GroovyScript',
         script: [
