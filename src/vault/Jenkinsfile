@@ -13,7 +13,8 @@ pipeline {
     activeChoiceHtml (
       name: 'SECRET_KEY',
       choiceType: 'ET_FORMATTED_HTML',
-      referencedParameters: 'ACTION', 
+      referencedParameters: 'ACTION',
+      omitValueField: true 
       script: [
         $class: 'GroovyScript',
         script: [
@@ -40,6 +41,7 @@ pipeline {
       name: 'SECRET_VALUE',
       choiceType: 'ET_FORMATTED_HTML',
       referencedParameters: 'ACTION', 
+      omitValueField: true
       script: [
         $class: 'GroovyScript',
         script: [
@@ -66,6 +68,7 @@ pipeline {
       name: 'SECRET_PATH',
       choiceType: 'ET_FORMATTED_HTML',
       referencedParameters: 'ACTION', 
+      omitValueField: true
       script: [
         $class: 'GroovyScript',
         script: [
