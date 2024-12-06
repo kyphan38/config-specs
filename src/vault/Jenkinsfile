@@ -12,13 +12,13 @@ pipeline {
         $class: 'GroovyScript',
         script: [
           classpath: [],
-          sandbox: false,
+          sandbox: true,
           script:
             'return ["A_State", "B_State", "C_State"]'
         ],
         fallbackScript: [
           classpath: [],
-          sandbox: false,
+          sandbox: true,
           script:
             'return ["Error for States"]'
         ]
@@ -34,7 +34,7 @@ pipeline {
         $class: 'GroovyScript',
         script: [
           classpath: [],
-          sandbox: false,
+          sandbox: true,
           script:
             '''
               if (States.equals("A_State")) {
@@ -46,7 +46,7 @@ pipeline {
         ],
         fallbackScript: [
           classpath: [],
-          sandbox: false,
+          sandbox: true,
           script:
             'return ["Error for Cities"]'
         ]
