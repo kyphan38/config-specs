@@ -5,7 +5,7 @@ pipeline {
 
     choice (
       name: 'ACTION',
-      choices: ["get", "put"],
+      choices: ["get"],
       description: 'Select a action'
     )
 
