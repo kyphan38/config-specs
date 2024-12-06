@@ -2,6 +2,39 @@ pipeline {
   agent any
 
   parameters {
+
+    choice (
+      name: 'ACTION',
+      choices: ["get", "put"],
+      description: 'Select a action'
+    )
+
+    activeChoiceHtml  (
+      name: 'SECRET_VALUE',
+      choiceType: 'ET_FORMATTED_HTML',
+      referencedParameters: 'ACTION', 
+      script: [
+        $class: 'GroovyScript',
+        script: [
+          classpath: [],
+          sandbox: true,
+          script:  // equals or == accepted
+          '''
+            if (ACTION.equals("put")) {
+              return "<input name='Cities_A' value='' class='setting-input' type='text'>"
+            }
+          '''
+        ],
+        fallbackScript: [
+          classpath: [],
+          sandbox: true,
+          script:
+            'return "error"'
+        ]
+      ]
+    )
+
+
     // Option 1
     // activeChoice(
     //   name: 'States',
@@ -25,40 +58,40 @@ pipeline {
     // )
     
     // Option 2
-    choice (
-      name: 'States',
-      choices: ["A_State", "B_State"],
-      description: 'Select a state option'
-    )
+    // choice (
+    //   name: 'States',
+    //   choices: ["A_State", "B_State"],
+    //   description: 'Select a state option'
+    // )
 
-    activeChoiceHtml(
-      name: 'Cities',
-      description: 'Select a city option',
-      choiceType: 'ET_FORMATTED_HTML',
-      referencedParameters: 'States', 
-      script: [
-        $class: 'GroovyScript',
-        script: [
-          classpath: [],
-          sandbox: true,
-          script:  // equals or == accepted
-          '''
-            if (States.equals("A_State")) {
-              return "<input name='Cities_A' value='N/A' class='setting-input' type='text'>"
-            }
-            else if (States.equals("B_State")) {
-              return "<input name='Cities_B' value='N/A' class='setting-input' type='text'>"
-            }
-          '''
-        ],
-        fallbackScript: [
-          classpath: [],
-          sandbox: true,
-          script:
-            'return "<p>error</p>"'
-        ]
-      ]
-    )
+    // activeChoiceHtml(
+    //   name: 'Cities',
+    //   description: 'Select a city option',
+    //   choiceType: 'ET_FORMATTED_HTML',
+    //   referencedParameters: 'States', 
+    //   script: [
+    //     $class: 'GroovyScript',
+    //     script: [
+    //       classpath: [],
+    //       sandbox: true,
+    //       script:  // equals or == accepted
+    //       '''
+    //         if (States.equals("A_State")) {
+    //           return "<input name='Cities_A' value='N/A' class='setting-input' type='text'>"
+    //         }
+    //         else if (States.equals("B_State")) {
+    //           return "<input name='Cities_B' value='N/A' class='setting-input' type='text'>"
+    //         }
+    //       '''
+    //     ],
+    //     fallbackScript: [
+    //       classpath: [],
+    //       sandbox: true,
+    //       script:
+    //         'return "<p>error</p>"'
+    //     ]
+    //   ]
+    // )
 
     // reactiveChoice(
     //   name: 'Cities',
@@ -88,13 +121,16 @@ pipeline {
     //     ]
     //   ]
     // )
+
+
+
   }
 
   stages {
     stage('Build') {
       steps {
-        echo "Showing ${params.States}"
-        echo "Showing ${params.Cities}"
+        echo "Showing ${params.ACTION}"
+        echo "Showing ${params.SECRET_VALUE}"
       }
     }
   }
