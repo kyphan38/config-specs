@@ -9,6 +9,31 @@ pipeline {
       description: 'Select a action'
     )
 
+    activeChoiceHtml (
+      name: 'SECRET_KEY',
+      choiceType: 'ET_FORMATTED_HTML',
+      referencedParameters: 'ACTION', 
+      script: [
+        $class: 'GroovyScript',
+        script: [
+          classpath: [],
+          sandbox: true,
+          script:  // equals or == accepted
+          """
+            if (ACTION.equals("put")) {
+              return "<input name='SECRET_KEY' value='' class='setting-input' type='text'>"
+            }
+          """
+        ],
+        fallbackScript: [
+          classpath: [],
+          sandbox: true,
+          script:
+            'return "error"'
+        ]
+      ]
+    )
+
     activeChoiceHtml  (
       name: 'SECRET_VALUE',
       choiceType: 'ET_FORMATTED_HTML',
@@ -19,11 +44,11 @@ pipeline {
           classpath: [],
           sandbox: true,
           script:  // equals or == accepted
-          '''
+          """
             if (ACTION.equals("put")) {
-              return "<input name='Cities_A' value='' class='setting-input' type='text'>"
+              return "<input name='SECRET_VALUE' value='' class='setting-input' type='text'>"
             }
-          '''
+          """
         ],
         fallbackScript: [
           classpath: [],
@@ -33,6 +58,7 @@ pipeline {
         ]
       ]
     )
+
 
 
     // Option 1
