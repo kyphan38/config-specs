@@ -34,8 +34,7 @@ pipeline {
     activeChoiceHtml(
       name: 'Cities',
       description: 'Select a city option',
-      choiceType: 'ET_FORMATTED_HTML',
-      omitValueField: true,
+      choiceType: 'ET_FORMATTED_HIDDEN_HTML',
       referencedParameters: 'States', 
       script: [
         $class: 'GroovyScript',
