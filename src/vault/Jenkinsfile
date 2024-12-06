@@ -47,8 +47,7 @@ pipeline {
           classpath: [],
           sandbox: true,
           script:
-            'return ["Error for Cities"]'
-            // "return ['Error for Cities ${States}']" - Work
+            "return ['Error for Cities ${States}']"
         ]
       ]
     )
