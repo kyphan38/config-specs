@@ -12,8 +12,6 @@ pipeline {
       name: 'States',
       description: 'Select a state option',
       choiceType: 'PT_MULTI_SELECT',
-      // filterLength: 1, 
-      // filterable: true, 
       script: [
         $class: 'GroovyScript',
         script: [
@@ -35,17 +33,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        echo 'Building..'
-      }
-    }
-    stage('Test') {
-      steps {
-        echo 'Testing..'
-      }
-    }
-    stage('Deploy') {
-      steps {
-        echo 'Deploying....'
+        echo 'Showing ${States}'
       }
     }
   }
