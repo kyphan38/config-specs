@@ -12,7 +12,6 @@ pipeline {
       name: 'States',
       description: 'Select a state option',
       choiceType: 'PT_MULTI_SELECT',
-      randomName: 'choice-parameter-843794300545400',
       script: [
         $class: 'GroovyScript',
         script: [
@@ -34,7 +33,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        echo 'Showing ${states}'
+        echo 'Showing ${params.States}'
       }
     }
   }
