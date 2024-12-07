@@ -12,6 +12,7 @@ pipeline {
     // Display
     activeChoiceHtml (
       name: 'SECRET_KEY',
+      description: 'Key of secret'
       choiceType: 'ET_FORMATTED_HTML',
       referencedParameters: 'ACTION', 
       omitValueField: true,
@@ -22,7 +23,7 @@ pipeline {
           sandbox: true,
           script:
           '''
-            if (ACTION=="put") {
+            if (ACTION == "put") {
               return "<input name='SECRET_KEY' value='' class='setting-input' type='text'>"
             } else {
               return ""}
@@ -39,6 +40,7 @@ pipeline {
 
     activeChoiceHtml  (
       name: 'SECRET_VALUE',
+      description: 'Value of secret'
       choiceType: 'ET_FORMATTED_HTML',
       referencedParameters: 'ACTION',
       omitValueField: true,
@@ -49,7 +51,7 @@ pipeline {
           sandbox: true,
           script:
           '''
-            if (ACTION=="put") {
+            if (ACTION == "put") {
               return "<input name='SECRET_VALUE' value='' class='setting-input' type='text'>"
             } else {
               return ""}
@@ -66,6 +68,7 @@ pipeline {
 
     activeChoiceHtml  (
       name: 'SECRET_PATH',
+      description: 'Path of secret'
       choiceType: 'ET_FORMATTED_HTML',
       referencedParameters: 'ACTION',
       omitValueField: true,
@@ -75,13 +78,13 @@ pipeline {
           classpath: [],
           sandbox: true,
           script:
-          """
-            if (ACTION=='get') {
-              return '<input name="SECRET_PATH" value="" class="setting-input" type="text">'
+          '''
+            if (ACTION == "get") {
+              return "<input name=\\"value\\" value=\\"Test\\" class=\\"setting-input\\" type=\\"text\\">" 
             } else {
               return ""
             }
-          """
+          '''
         ],
         fallbackScript: [
           classpath: [],
