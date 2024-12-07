@@ -12,7 +12,7 @@ pipeline {
     // Display
     activeChoiceHtml (
       name: 'SECRET_KEY',
-      description: 'Key of secret'
+      description: 'Key of secret',
       choiceType: 'ET_FORMATTED_HTML',
       referencedParameters: 'ACTION', 
       omitValueField: true,
@@ -40,7 +40,7 @@ pipeline {
 
     activeChoiceHtml  (
       name: 'SECRET_VALUE',
-      description: 'Value of secret'
+      description: 'Value of secret',
       choiceType: 'ET_FORMATTED_HTML',
       referencedParameters: 'ACTION',
       omitValueField: true,
@@ -68,7 +68,7 @@ pipeline {
 
     activeChoiceHtml  (
       name: 'SECRET_PATH',
-      description: 'Path of secret'
+      description: 'Path of secret',
       choiceType: 'ET_FORMATTED_HTML',
       referencedParameters: 'ACTION',
       omitValueField: true,
