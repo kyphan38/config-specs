@@ -24,9 +24,10 @@ pipeline {
           script:
           '''
             if (ACTION == "put") {
-              return "<input name='SECRET_KEY' value='' class='setting-input' type='text'>"
+              return "<input name=\\"value\\" value=\\"\\" class=\\"setting-input\\" type=\\"text\\">" 
             } else {
-              return ""}
+              return \\"\\"
+            }
           '''
         ],
         fallbackScript: [
@@ -52,9 +53,10 @@ pipeline {
           script:
           '''
             if (ACTION == "put") {
-              return "<input name='SECRET_VALUE' value='' class='setting-input' type='text'>"
+              return "<input name=\\"value\\" value=\\"\\" class=\\"setting-input\\" type=\\"text\\">" 
             } else {
-              return ""}
+              return \\"\\"
+            }
           '''
         ],
         fallbackScript: [
@@ -82,7 +84,7 @@ pipeline {
             if (ACTION == "get") {
               return "<input name=\\"value\\" value=\\"\\" class=\\"setting-input\\" type=\\"text\\">" 
             } else {
-              return ""
+              return \\"\\"
             }
           '''
         ],
