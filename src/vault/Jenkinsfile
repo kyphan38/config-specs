@@ -80,7 +80,7 @@ pipeline {
           script:
           '''
             if (ACTION == "get") {
-              return "<input name=\\"value\\" value=\\"Test\\" class=\\"setting-input\\" type=\\"text\\">" 
+              return "<input name=\\"value\\" value=\\"\\" class=\\"setting-input\\" type=\\"text\\">" 
             } else {
               return ""
             }
