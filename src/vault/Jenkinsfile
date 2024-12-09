@@ -23,6 +23,7 @@ pipeline {
         sh '''
           pwd
           ls -lah
+          cat JSONData
         '''
       }
     }
