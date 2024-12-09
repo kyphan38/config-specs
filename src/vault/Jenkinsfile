@@ -19,7 +19,7 @@ pipeline {
         //   sh 'cat $JSONData'
         // }
 
-        unstash "JSONData"
+        // unstash "JSONData"
 
         sh """
           pwd
