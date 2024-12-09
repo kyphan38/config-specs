@@ -30,11 +30,14 @@ pipeline {
     }
 
     stage('Test') {
-      sh """
-        pwd
-        ls -lah
-        cat JSONData
-      """
+      steps {
+        sh """
+          pwd
+          ls -lah
+          cat JSONData
+        """
+      }
+
     }
   }
 }
