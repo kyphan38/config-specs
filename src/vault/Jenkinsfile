@@ -2,7 +2,7 @@ pipeline {
   agent any
 
   parameters {
-    stashedFile(name: 'JSONData')
+    stashedFile(name: 'JSONData1')
   }
 
   stages {
@@ -13,16 +13,16 @@ pipeline {
         sh '''
           ls -lah
         '''
-        withFileParameter('JSONData'){
-          sh 'cat $JSONData'
+        withFileParameter('JSONData1'){
+          sh 'cat $JSONData1'
         }
 
-        unstash "JSONData"
+        unstash "JSONData1"
 
         sh """
           pwd
           ls -lah
-          cat JSONData
+          cat JSONData1
         """
       }
     }
