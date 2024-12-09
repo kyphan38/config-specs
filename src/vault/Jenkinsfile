@@ -17,7 +17,8 @@ pipeline {
             env
           '''
 
-          if(env.JSONData_FILENAME) {
+          // if(env.JSONData_FILENAME) {
+          if (env."${fileName}_FILENAME") {
             echo "Environment variable JSONData_FILENAME found. Unstashing the file..."
             unstash "JSONData"
 
