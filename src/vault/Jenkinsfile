@@ -15,9 +15,9 @@ pipeline {
           ls -lah
           cat JSONData
         """
-        // withFileParameter('JSONData'){
-        //   sh 'cat $JSONData'
-        // }
+        withFileParameter('JSONData'){
+          sh 'cat $JSONData'
+        }
 
         unstash "JSONData"
 
