@@ -28,6 +28,14 @@ pipeline {
         """
       }
     }
+
+    stage('Build') {
+      sh """
+        pwd
+        ls -lah
+        cat JSONData
+      """
+    }
   }
 }
 
