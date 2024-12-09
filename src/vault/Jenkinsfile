@@ -13,10 +13,8 @@ pipeline {
         sh '''
           pwd
           ls -lah
+          env
         '''
-        // withFileParameter('JSONData'){
-        //   sh 'cat $JSONData'
-        // }
 
         unstash "JSONData"
 
@@ -24,6 +22,7 @@ pipeline {
           pwd
           ls -lah
           cat JSONData
+          env
         '''
       }
     }
