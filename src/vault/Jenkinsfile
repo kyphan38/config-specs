@@ -29,7 +29,7 @@ pipeline {
       }
     }
 
-    stage('Build') {
+    stage('Test') {
       sh """
         pwd
         ls -lah
