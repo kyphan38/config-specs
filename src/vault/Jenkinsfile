@@ -2,116 +2,27 @@ pipeline {
   agent any
 
   parameters {
-
-    choice (
-      name: 'ACTION',
-      choices: ['get', 'put'],
-      description: 'Select a action'
-    )
-
-    // Display
-    activeChoiceHtml (
-      name: 'SECRET_KEY',
-      description: 'Key of secret',
-      choiceType: 'ET_FORMATTED_HTML',
-      referencedParameters: 'ACTION', 
-      omitValueField: true,
-      script: [
-        $class: 'GroovyScript',
-        script: [
-          classpath: [],
-          sandbox: true,
-          script:
-          '''
-            if (ACTION == "put") {
-              return "<input name=\\"value\\" value=\\"\\" class=\\"setting-input\\" type=\\"text\\">" 
-            } else {
-              return ""
-            }
-          '''
-        ],
-        fallbackScript: [
-          classpath: [],
-          sandbox: true,
-          script:
-            'return "error"'
-        ]
-      ]
-    )
-
-    activeChoiceHtml  (
-      name: 'SECRET_VALUE',
-      description: 'Value of secret',
-      choiceType: 'ET_FORMATTED_HTML',
-      referencedParameters: 'ACTION',
-      omitValueField: true,
-      script: [
-        $class: 'GroovyScript',
-        script: [
-          classpath: [],
-          sandbox: true,
-          script:
-          '''
-            if (ACTION == "put") {
-              return "<input name=\\"value\\" value=\\"\\" class=\\"setting-input\\" type=\\"text\\">" 
-            } else {
-              return ""
-            }
-          '''
-        ],
-        fallbackScript: [
-          classpath: [],
-          sandbox: true,
-          script:
-            'return "error"'
-        ]
-      ]
-    )
-
-    activeChoiceHtml  (
-      name: 'SECRET_PATH',
-      description: 'Path of secret',
-      choiceType: 'ET_FORMATTED_HTML',
-      referencedParameters: 'ACTION',
-      omitValueField: true,
-      script: [
-        $class: 'GroovyScript',
-        script: [
-          classpath: [],
-          sandbox: true,
-          script:
-          '''
-            if (ACTION == "get") {
-              return "<input name=\\"value\\" value=\\"\\" class=\\"setting-input\\" type=\\"text\\">" 
-            } else {
-              return ""
-            }
-          '''
-        ],
-        fallbackScript: [
-          classpath: [],
-          sandbox: true,
-          script:
-            'return "error"'
-        ]
-      ]
-    )
+    stashedFile(name: 'JSONData')
   }
 
   stages {
     stage('Build') {
       steps {
-        echo "Display ${params.ACTION}"
-        echo "Display ${params.SECRET_PATH}"
-        echo "Display ${params.SECRET_KEY}"
-        echo "Display ${params.SECRET_VALUE}"
+        echo "Display ${params.JSONData}"
+
+        sh '''
+          pwd
+          ls -lah
+          env
+        '''
       }
     }
   }
 }
 
 // Option 1
-    // activeChoice(
+
+      // activeChoice(
     //   name: 'States',
     //   description: 'Select a state option',
     //   choiceType: 'PT_SINGLE_SELECT',
@@ -131,7 +42,102 @@ pipeline {
     //     ]
     //   ]
     // )
-    
+
+    // choice (
+    //   name: 'ACTION',
+    //   choices: ['get', 'put'],
+    //   description: 'Select a action'
+    // )
+
+    // // Display
+    // activeChoiceHtml (
+    //   name: 'SECRET_KEY',
+    //   description: 'Key of secret',
+    //   choiceType: 'ET_FORMATTED_HTML',
+    //   referencedParameters: 'ACTION', 
+    //   omitValueField: true,
+    //   script: [
+    //     $class: 'GroovyScript',
+    //     script: [
+    //       classpath: [],
+    //       sandbox: true,
+    //       script:
+    //       '''
+    //         if (ACTION == "put") {
+    //           return "<input name=\\"value\\" value=\\"\\" class=\\"setting-input\\" type=\\"text\\">" 
+    //         } else {
+    //           return ""
+    //         }
+    //       '''
+    //     ],
+    //     fallbackScript: [
+    //       classpath: [],
+    //       sandbox: true,
+    //       script:
+    //         'return "error"'
+    //     ]
+    //   ]
+    // )
+
+    // activeChoiceHtml  (
+    //   name: 'SECRET_VALUE',
+    //   description: 'Value of secret',
+    //   choiceType: 'ET_FORMATTED_HTML',
+    //   referencedParameters: 'ACTION',
+    //   omitValueField: true,
+    //   script: [
+    //     $class: 'GroovyScript',
+    //     script: [
+    //       classpath: [],
+    //       sandbox: true,
+    //       script:
+    //       '''
+    //         if (ACTION == "put") {
+    //           return "<input name=\\"value\\" value=\\"\\" class=\\"setting-input\\" type=\\"text\\">" 
+    //         } else {
+    //           return ""
+    //         }
+    //       '''
+    //     ],
+    //     fallbackScript: [
+    //       classpath: [],
+    //       sandbox: true,
+    //       script:
+    //         'return "error"'
+    //     ]
+    //   ]
+    // )
+
+    // activeChoiceHtml  (
+    //   name: 'SECRET_PATH',
+    //   description: 'Path of secret',
+    //   choiceType: 'ET_FORMATTED_HTML',
+    //   referencedParameters: 'ACTION',
+    //   omitValueField: true,
+    //   script: [
+    //     $class: 'GroovyScript',
+    //     script: [
+    //       classpath: [],
+    //       sandbox: true,
+    //       script:
+    //       '''
+    //         if (ACTION == "get") {
+    //           return "<input name=\\"value\\" value=\\"\\" class=\\"setting-input\\" type=\\"text\\">" 
+    //         } else {
+    //           return ""
+    //         }
+    //       '''
+    //     ],
+    //     fallbackScript: [
+    //       classpath: [],
+    //       sandbox: true,
+    //       script:
+    //         'return "error"'
+    //     ]
+    //   ]
+    // )
+
+
     // Option 2
     // choice (
     //   name: 'States',
