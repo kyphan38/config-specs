@@ -10,22 +10,22 @@ pipeline {
       steps {
         echo "Display ${params.JSONData}"
 
-        sh '''
+        sh """
           pwd
           ls -lah
           cat JSONData
-        '''
+        """
         // withFileParameter('JSONData'){
         //   sh 'cat $JSONData'
         // }
 
-        unstash 'JSONData'
+        // unstash "JSONData"
 
-        sh '''
+        sh """
           pwd
           ls -lah
           cat JSONData
-        '''
+        """
       }
     }
 
