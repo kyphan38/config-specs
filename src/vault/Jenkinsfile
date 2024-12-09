@@ -13,17 +13,17 @@ pipeline {
         sh '''
           ls -lah
         '''
-        withFileParameter('JSONData1'){
-          sh 'cat $JSONData1'
-        }
+        // withFileParameter('JSONData1'){
+        //   sh 'cat $JSONData1'
+        // }
 
-        unstash "JSONData1"
+        // unstash "JSONData1"
 
-        sh """
-          pwd
-          ls -lah
-          cat JSONData1
-        """
+        // sh """
+        //   pwd
+        //   ls -lah
+        //   cat JSONData1
+        // """
       }
     }
   }
