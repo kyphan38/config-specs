@@ -2,7 +2,7 @@ pipeline {
   agent any
 
   parameters {
-    stashedFile(name: 'JSONData1')
+    stashedFile(name: 'JSONData')
   }
 
   stages {
@@ -11,19 +11,36 @@ pipeline {
         echo "Display ${params.JSONData}"
 
         sh '''
+          pwd
           ls -lah
         '''
-        // withFileParameter('JSONData1'){
-        //   sh 'cat $JSONData1'
+        // withFileParameter('JSONData'){
+        //   sh 'cat $JSONData'
         // }
 
-        // unstash "JSONData1"
+        // unstash "JSONData"
 
-        // sh """
-        //   pwd
-        //   ls -lah
-        //   cat JSONData1
-        // """
+        sh '''
+          pwd
+          ls -lah
+        '''
+      }
+    }
+
+    stage('Test') {
+      steps {
+        sh """
+          pwd
+          ls -lah
+        """
+      }
+
+    }
+  }
+  post {
+    always {
+      script {
+        cleanWs()
       }
     }
   }
