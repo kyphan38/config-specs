@@ -8,12 +8,14 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        echo "Display ${params.JSONData}"
+        // echo "Display ${params.JSONData}"
+        withFileParameter('JSONData'){
+          sh 'cat $JSONData'
+        }
 
         sh '''
           pwd
           ls -lah
-          env
         '''
       }
     }
