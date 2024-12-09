@@ -8,38 +8,34 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        echo "Display ${params.JSONData}"
+        script {
+          echo "Display ${params.JSONData}"
 
-        sh '''
-          pwd
-          ls -lah
-          env
-
-
-        '''
-
-        if(env.JSONData_FILENAME) {
-          echo "Environment variable JSONData_FILENAME found. Unstashing the file..."
-          unstash "JSONData"
-
-          sh '''
-            pwd
-            ls -lah
-            cat JSONData
-            env
-          '''
-        } else {
-          echo "Sorry"
           sh '''
             pwd
             ls -lah
             env
           '''
+
+          if(env.JSONData_FILENAME) {
+            echo "Environment variable JSONData_FILENAME found. Unstashing the file..."
+            unstash "JSONData"
+
+            sh '''
+              pwd
+              ls -lah
+              cat JSONData
+              env
+            '''
+          } else {
+            echo "Sorry"
+            sh '''
+              pwd
+              ls -lah
+              env
+            '''
+          }
         }
-
-        
-
-
       }
     }
 
