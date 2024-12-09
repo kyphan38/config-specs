@@ -14,16 +14,32 @@ pipeline {
           pwd
           ls -lah
           env
+
+
         '''
 
-        unstash "JSONData"
+        if(env.JSONData_FILENAME) {
+          echo "Environment variable JSONData_FILENAME found. Unstashing the file..."
+          unstash "JSONData"
 
-        sh '''
-          pwd
-          ls -lah
-          cat JSONData
-          env
-        '''
+          sh '''
+            pwd
+            ls -lah
+            cat JSONData
+            env
+          '''
+        } else {
+          echo "Sorry"
+          sh '''
+            pwd
+            ls -lah
+            env
+          '''
+        }
+
+        
+
+
       }
     }
 
