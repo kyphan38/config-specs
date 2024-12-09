@@ -13,13 +13,13 @@ pipeline {
         //   sh 'cat $JSONData'
         // }
 
-        unstash 'JSONData'
+        unstash "JSONData"
 
-        sh '''
+        sh """
           pwd
           ls -lah
           cat JSONData
-        '''
+        """
       }
     }
   }
