@@ -9,9 +9,9 @@ pipeline {
     stage('Build') {
       steps {
         echo "Display ${params.JSONData}"
-        withFileParameter('JSONData'){
-          sh 'cat $JSONData'
-        }
+        // withFileParameter('JSONData'){
+        //   sh 'cat $JSONData'
+        // }
 
         unstash 'JSONData'
 
