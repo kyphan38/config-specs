@@ -14,12 +14,12 @@ pipeline {
         docker stop vault-container
         echo \$a
       """
+      )
 
       sh """
         echo ${token}
       """
-      
-      )
+    
     }
     // stage('Build') {
     //   steps {
