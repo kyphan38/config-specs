@@ -9,11 +9,12 @@ pipeline {
     stage('Test') {
       steps {
         script {
+          String containerName = "vault-container"
           String token = sh(script: """
             set +x
-            docker run --cap-add=IPC_LOCK --rm --name=vault-container -d hashicorp/vault >/dev/null && sleep 5
-            docker logs vault-container 2>/dev/null | grep -m 1 \'Root Token:\' | awk \'{print \$NF}\'
-            docker stop vault-container >/dev/null
+            docker run -d --rm --cap-add=IPC_LOCK --name=${containerName} hashicorp/vault >/dev/null && sleep 5
+            docker logs ${containerName} 2>/dev/null | grep -m 1 \'Root Token:\' | awk \'{print \$NF}\'
+            docker stop ${containerName} >/dev/null
           """, returnStdout: true).trim()
 
           sh """
