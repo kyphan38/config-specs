@@ -15,8 +15,7 @@ pipeline {
             a=\$(docker logs vault-container 2>/dev/null | grep -m 1 \'Root Token:\' | awk \'{print \$NF}\')
             docker stop vault-container
             echo \$a
-          """
-          )
+          """, returnStdout: true).trim()
 
           sh """
             echo ${token}
