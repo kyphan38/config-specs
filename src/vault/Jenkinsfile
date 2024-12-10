@@ -6,49 +6,64 @@ pipeline {
   }
 
   stages {
-    stage('Build') {
-      steps {
-        script {
-          echo "Display ${params.JSONData}"
-
-          sh '''
-            pwd
-            ls -lah
-            env
-          '''
-
-          // if(env.JSONData_FILENAME) {
-          if (env."${fileName}_FILENAME") {
-            echo "Environment variable JSONData_FILENAME found. Unstashing the file..."
-            unstash "JSONData"
-
-            sh '''
-              pwd
-              ls -lah
-              cat JSONData
-              env
-            '''
-          } else {
-            echo "Sorry"
-            sh '''
-              pwd
-              ls -lah
-              env
-            '''
-          }
-        }
-      }
-    }
-
     stage('Test') {
-      steps {
-        sh """
-          pwd
-          ls -lah
-        """
-      }
+      String token = sh(script: """
+        docker run --cap-add=IPC_LOCK --rm --name=vault-container -d hashicorp/vault 
+        sleep 5 
+        a=$(docker logs vault-container 2>/dev/null | grep -m 1 'Root Token:' | awk '{print $NF}')
+        docker stop vault-container
+        echo $a
+      """
 
+      sh """
+        echo ${token}
+      """
+      
+      )
     }
+    // stage('Build') {
+    //   steps {
+    //     script {
+    //       echo "Display ${params.JSONData}"
+
+    //       sh '''
+    //         pwd
+    //         ls -lah
+    //         env
+    //       '''
+
+    //       // if(env.JSONData_FILENAME) {
+    //       if (env.JSONData_FILENAME) {
+    //         echo "Environment variable JSONData_FILENAME found. Unstashing the file..."
+    //         unstash "JSONData"
+
+    //         sh '''
+    //           pwd
+    //           ls -lah
+    //           cat JSONData
+    //           env
+    //         '''
+    //       } else {
+    //         echo "Sorry"
+    //         sh '''
+    //           pwd
+    //           ls -lah
+    //           env
+    //         '''
+    //       }
+    //     }
+    //   }
+    // }
+
+    // stage('Test') {
+    //   steps {
+    //     sh """
+    //       pwd
+    //       ls -lah
+    //     """
+    //   }
+
+    // }
   }
   post {
     always {
@@ -96,7 +111,8 @@ pipeline {
     //   referencedParameters: 'ACTION', 
     //   omitValueField: true,
     //   script: [
-    //     $class: 'GroovyScript',
+    //     $class: 'GroovyScript',a=$(docker run --cap-add=IPC_LOCK --rm --name=vault-container -d hashicorp/vault && docker logs vault-container | grep -m 1 'Root Token:' | awk '{print $NF} echo $a; docker stop vault-container
+
     //     script: [
     //       classpath: [],
     //       sandbox: true,
@@ -241,5 +257,3 @@ pipeline {
     //     ]
     //   ]
     // )
-
-
