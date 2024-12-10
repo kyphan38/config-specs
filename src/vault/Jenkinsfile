@@ -7,19 +7,20 @@ pipeline {
 
   stages {
     stage('Test') {
-      String token = sh(script: """
-        docker run --cap-add=IPC_LOCK --rm --name=vault-container -d hashicorp/vault 
-        sleep 5 
-        a=\$(docker logs vault-container 2>/dev/null | grep -m 1 \'Root Token:\' | awk \'{print \$NF}\')
-        docker stop vault-container
-        echo \$a
-      """
-      )
+      script {
+        String token = sh(script: """
+          docker run --cap-add=IPC_LOCK --rm --name=vault-container -d hashicorp/vault 
+          sleep 5 
+          a=\$(docker logs vault-container 2>/dev/null | grep -m 1 \'Root Token:\' | awk \'{print \$NF}\')
+          docker stop vault-container
+          echo \$a
+        """
+        )
 
-      sh """
-        echo ${token}
-      """
-    
+        sh """
+          echo ${token}
+        """
+      }
     }
     // stage('Build') {
     //   steps {
