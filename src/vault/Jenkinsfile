@@ -10,6 +10,7 @@ pipeline {
       steps {
         script {
           String token = sh(script: """
+            set +x
             docker run --cap-add=IPC_LOCK --rm --name=vault-container -d hashicorp/vault >/dev/null && sleep 5
             docker logs vault-container 2>/dev/null | grep -m 1 \'Root Token:\' | awk \'{print \$NF}\'
             docker stop vault-container >/dev/null
