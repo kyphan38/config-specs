@@ -1,0 +1,3 @@
+[93mWARNING! VAULT_ADDR and -address unset. Defaulting to https://127.0.0.1:8200.[0m
+[91mError authenticating: failed to retrieve credentials from credential chain: NoCredentialProviders: no valid providers in chain. Deprecated.
+	For verbose messaging see aws.Config.CredentialsChainVerboseErrors[0m

@@ -3,23 +3,52 @@ pipeline {
 
   parameters {
     stashedFile(name: 'JSONData')
+    activeChoiceHtml  (
+      name: 'SECRET_PATH',
+      description: 'Path of secret',
+      choiceType: 'ET_FORMATTED_HTML',
+      referencedParameters: 'ACTION',
+      omitValueField: true,
+      script: [
+        $class: 'GroovyScript',
+        script: [
+          classpath: [],
+          sandbox: true,
+          script:
+          '''
+            return "<input name=\\"value\\" value=\\"\\" class=\\"setting-input\\" type=\\"text\\">" 
+          '''
+        ],
+        fallbackScript: [
+          classpath: [],
+          sandbox: true,
+          script:
+            'return "error"'
+        ]
+      ]
+    )
   }
 
   stages {
-    stage('Test') {
+    stage('Prepare') {
       steps {
         script {
-          String containerName = "vault-container"
-          String token = sh(script: """
-            set +x
-            docker run -d --rm --cap-add=IPC_LOCK --name=${containerName} hashicorp/vault >/dev/null && sleep 5
-            docker logs ${containerName} 2>/dev/null | grep -m 1 \'Root Token:\' | awk \'{print \$NF}\'
-            docker stop ${containerName} >/dev/null
-          """, returnStdout: true).trim()
+          String secretPath = params.SECRET_PATH.trim()
 
-          sh """
-            echo ${token}
-          """
+          if (secretPath.isEmpty()) {
+            error "Can not empty"
+          } 
+          
+          if (!(secretPath.contains('ms') || secretPath.contains('miniapp'))) {
+            error "Invalid input, the path must contain 'ms' or 'miniapp'."
+          }
+
+          if (secretPath.startWith('ms') || secretPath.startWith('miniapp')) {
+            secretPath = 'ib/$secretPath'
+          } else if (!secretPath.startsWith('ib')) {
+            error "Invalid input, the path must start with 'ms-', 'miniapp-', or 'ib-'."
+          }
+          echo "Secret path is: ${secretPath}"
         }
       }
     }
