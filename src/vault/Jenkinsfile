@@ -36,17 +36,17 @@ pipeline {
           String secretPath = params.SECRET_PATH.trim()
 
           if (secretPath.isEmpty()) {
-            error "Can not empty"
+            error "The path an not empty"
           } 
           
           if (!(secretPath.contains('ms') || secretPath.contains('miniapp'))) {
-            error "Invalid input, the path must contain 'ms' or 'miniapp'."
+            error "The path must contain 'ms' or 'miniapp'."
           }
 
           if (secretPath.startWith('ms') || secretPath.startWith('miniapp')) {
             secretPath = 'ib/$secretPath'
           } else if (!secretPath.startsWith('ib')) {
-            error "Invalid input, the path must start with 'ms-', 'miniapp-', or 'ib-'."
+            error "The path must start with 'ms-', 'miniapp-', or 'ib-'."
           }
           echo "Secret path is: ${secretPath}"
         }
