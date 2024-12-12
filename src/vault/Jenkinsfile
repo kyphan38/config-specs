@@ -40,7 +40,8 @@ pipeline {
             error "The path an not empty"
           } 
           
-          if (!(secretPath.startsWith('ib/ms') || secretPath.startsWith('ib/miniapp'))) {
+          if (!(secretPath.startsWith('ms') || secretPath.startsWith('miniapp') || \
+                secretPath.startsWith('ib/ms') || secretPath.startsWith('ib/miniapp'))) {
             echo "Condition 2"
             error "The path must contain 'ms' or 'miniapp or ib'."
           }
