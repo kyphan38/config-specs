@@ -45,7 +45,7 @@ pipeline {
 
           if (secretPath.startsWith('ms') || secretPath.startsWith('miniapp')) {
             secretPath = "ib/${secretPath}"
-          } else if (!secretPath.startsWith('ib')) {
+          } else if (secretPath.startsWith('ib/') && !(secretPath.substring(3).startsWith('ms-') || secretPath.substring(3).startsWith('miniapp-'))) { {
             error "The path must start with 'ms-', 'miniapp-', or 'ib-'."
           }
           echo "Secret path is: ${secretPath}"
