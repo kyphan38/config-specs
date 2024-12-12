@@ -43,7 +43,7 @@ pipeline {
             error "The path must contain 'ms' or 'miniapp'."
           }
 
-          if (secretPath.startWith('ms') || secretPath.startWith('miniapp')) {
+          if (secretPath.startsWith('ms') || secretPath.startsWith('miniapp')) {
             secretPath = 'ib/$secretPath'
           } else if (!secretPath.startsWith('ib')) {
             error "The path must start with 'ms-', 'miniapp-', or 'ib-'."
