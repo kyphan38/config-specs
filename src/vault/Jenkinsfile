@@ -56,26 +56,28 @@ pipeline {
       ]
     )
 
-    activeChoiceHtml  (
-      name: '',
-      choiceType: 'ET_FORMATTED_HTML',
-      referencedParameters: 'SECRET_PATH',
-      omitValueField: false,
-      script: [
-        $class: 'GroovyScript',
-        script: [
-          classpath: [],
-          sandbox: false,
-          script: SECRET_PATH_VALIDATION_SCRIPT
-        ],
-        fallbackScript: [
-          classpath: [],
-          sandbox: false,
-          script:
-            ''
-        ]
-      ]
-    )
+
+    activeChoiceHtml(choiceType: 'ET_FORMATTED_HTML', name: '', omitValueField: false, randomName: 'choice-parameter-245311171714083', referencedParameters: 'SECRET_PATH', script: groovyScript(fallbackScript: [classpath: [], oldScript: '', sandbox: false, script: ''], script: [classpath: [], oldScript: '', sandbox: false, script: SECRET_PATH_VALIDATION_SCRIPT])),
+    // activeChoiceHtml  (
+    //   name: '',
+    //   choiceType: 'ET_FORMATTED_HTML',
+    //   referencedParameters: 'SECRET_PATH',
+    //   omitValueField: false,
+    //   script: [
+    //     $class: 'GroovyScript',
+    //     script: [
+    //       classpath: [],
+    //       sandbox: false,
+    //       script: SECRET_PATH_VALIDATION_SCRIPT
+    //     ],
+    //     fallbackScript: [
+    //       classpath: [],
+    //       sandbox: false,
+    //       script:
+    //         ''
+    //     ]
+    //   ]
+    // )
   }
 
   stages {
