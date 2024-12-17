@@ -57,7 +57,7 @@ pipeline {
     )
 
 
-    activeChoiceHtml(choiceType: 'ET_FORMATTED_HTML', name: '', omitValueField: false, randomName: 'choice-parameter-245311171714083', referencedParameters: 'SECRET_PATH', script: groovyScript(fallbackScript: [classpath: [], oldScript: '', sandbox: false, script: ''], script: [classpath: [], oldScript: '', sandbox: false, script: SECRET_PATH_VALIDATION_SCRIPT])),
+    activeChoiceHtml(choiceType: 'ET_FORMATTED_HTML', name: '', omitValueField: false, randomName: 'choice-parameter-245311171714083', referencedParameters: 'SECRET_PATH', script: groovyScript(fallbackScript: [classpath: [], oldScript: '', sandbox: false, script: ''], script: [classpath: [], oldScript: '', sandbox: false, script: SECRET_PATH_VALIDATION_SCRIPT]))
     // activeChoiceHtml  (
     //   name: '',
     //   choiceType: 'ET_FORMATTED_HTML',
