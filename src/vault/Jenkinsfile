@@ -11,7 +11,7 @@ if(SECRET_PATH.trim() == ""){
 else{
   SECRET_PATH.split(",").each{ secret_path ->
     secret_path = secret_path.trim().toLowerCase()
-    if(!(secret_path ==~ /^ib\/(ms|miniapp)-.+\/.+/)){
+    if(!(secret_path ==~ /^ib/(ms|miniapp)-.+/.+/)){
       invalid_secret_paths.add(secret_path)
     }
   }
