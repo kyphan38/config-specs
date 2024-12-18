@@ -3,7 +3,7 @@ pipeline {
 
   parameters {
     stashedFile(name: 'JSONData')
-    string('SECRET_PATH', defaultValue: '')
+    string(name: 'SECRET_PATH', defaultValue: '')
   }
 
   stages {
