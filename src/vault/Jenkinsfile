@@ -1,105 +1,16 @@
-
-def SECRET_PATH_VALIDATION_SCRIPT='''
-import jenkins.model.*
-def invalid_secret_paths = []
-if(SECRET_PATH.trim() == ""){
-  return """
-    <style>.jenkins-button--primary { display: none; }</style>
-    <span style=\'color:red\'>&#10060; Secret Path should not be blank.</span>
-  """
-}
-else{
-  SECRET_PATH.split(",").each{ secret_path ->
-    secret_path = secret_path.trim().toLowerCase()
-    if(!(secret_path ==~ /^ib/(ms|miniapp)-.+/.+/)){
-      invalid_secret_paths.add(secret_path)
-    }
-  }
-}
-if(!invalid_secret_paths){
-  return "<span style=\'color:green\'>&#9989; Valid Secret Path(s)</span>"
-}
-else{
-  return """
-    <style>.jenkins-button--primary { display: none; }</style>
-    <span style=\'color:red\'>&#10060; Invalid Secret Path(s): ${invalid_secret_paths.join(\', \')}.</span>
-  """
-}
-'''
-
 pipeline {
   agent any
 
   parameters {
-    activeChoiceHtml  (
-      name: 'SECRET_PATH',
-      description: 'Path of secret',
-      choiceType: 'ET_FORMATTED_HTML',
-      referencedParameters: 'ACTION',
-      omitValueField: true,
-      script: [
-        $class: 'GroovyScript',
-        script: [
-          classpath: [],
-          sandbox: true,
-          script:
-          '''
-            return "<input name=\\"value\\" value=\\"\\" class=\\"setting-input\\" type=\\"text\\">" 
-          '''
-        ],
-        fallbackScript: [
-          classpath: [],
-          sandbox: true,
-          script:
-            'return "error"'
-        ]
-      ]
-    )
-
-
-    activeChoiceHtml(choiceType: 'ET_FORMATTED_HTML', name: '', omitValueField: false, randomName: 'choice-parameter-245311171714083', referencedParameters: 'SECRET_PATH', script: groovyScript(fallbackScript: [classpath: [], oldScript: '', sandbox: false, script: ''], script: [classpath: [], oldScript: '', sandbox: false, script: SECRET_PATH_VALIDATION_SCRIPT]))
-    // activeChoiceHtml  (
-    //   name: '',
-    //   choiceType: 'ET_FORMATTED_HTML',
-    //   referencedParameters: 'SECRET_PATH',
-    //   omitValueField: false,
-    //   script: [
-    //     $class: 'GroovyScript',
-    //     script: [
-    //       classpath: [],
-    //       sandbox: false,
-    //       script: SECRET_PATH_VALIDATION_SCRIPT
-    //     ],
-    //     fallbackScript: [
-    //       classpath: [],
-    //       sandbox: false,
-    //       script:
-    //         ''
-    //     ]
-    //   ]
-    // )
+    stashedFile(name: 'JSONData')
+    string('SECRET_PATH', defaultValue: '')
   }
 
   stages {
     stage('Prepare') {
       steps {
         script {
-          String secretPath = params.SECRET_PATH.trim()
-
-          if (secretPath.isEmpty()) {
-            error "The path an not empty"
-          } 
-          
-          if (!(secretPath.startsWith('ms') || secretPath.startsWith('miniapp') || \
-                secretPath.startsWith('ib/ms') || secretPath.startsWith('ib/miniapp'))) {
-            error "The path must contain 'ms' or 'miniapp or ib'."
-          }
-
-          if (secretPath.startsWith('ms') || secretPath.startsWith('miniapp')) {
-            secretPath = "ib/${secretPath}"
-          }
-          
-          echo "Secret path is: ${secretPath}"
+          sh "vault kv get -format=json -mount=secret_kv -field=data ${SECRET_PATH}"
         }
       }
     }
