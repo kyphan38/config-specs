@@ -1,4 +1,4 @@
-pipeline() {
+pipeline {
   agent any
 
   parameters {
@@ -8,7 +8,7 @@ pipeline() {
       name: 'IP', 
       defaultValue: '10.', 
       regex: /^(10(\.(\d|[1-9]\d|1\d{2}|2[0-4]\d|25[0-5])){3}\s?)+$,
-      failedValidationMessage: 'Should not be empty and in range of ..., For multiple, separate by space', 
+      failedValidationMessage: 'Should not be empty and must be in the range of valid IPs. For multiple, separate by space.', 
       description: 'IP or IPs'
     )
   }
@@ -17,12 +17,12 @@ pipeline() {
     stage('Prepare') {
       steps {
         script {
-          echo "${params.IP}"
+          echo "Provided IP: ${params.IP}"
         }
       }
     }
   }
-
+  
   post {
     always {
       script {
