@@ -17,54 +17,10 @@ pipeline {
     stage('Prepare') {
       steps {
         script {
-          // sh(script: "export VAULT_ADDR='http://0.0.0.0:8200' && vault kv get -format=json -mount=secret_kv -field=data ${SECRET_PATH}", returnStatus: true)
           echo "${params.IP}"
         }
       }
     }
-    // stage('Build') {
-    //   steps {
-    //     script {
-    //       echo "Display ${params.JSONData}"
-
-    //       sh '''
-    //         pwd
-    //         ls -lah
-    //         env
-    //       '''
-
-    //       // if(env.JSONData_FILENAME) {
-    //       if (env.JSONData_FILENAME) {
-    //         echo "Environment variable JSONData_FILENAME found. Unstashing the file..."
-    //         unstash "JSONData"
-
-    //         sh '''
-    //           pwd
-    //           ls -lah
-    //           cat JSONData
-    //           env
-    //         '''
-    //       } else {
-    //         echo "Sorry"
-    //         sh '''
-    //           pwd
-    //           ls -lah
-    //           env
-    //         '''
-    //       }
-    //     }
-    //   }
-    // }
-
-    // stage('Test') {
-    //   steps {
-    //     sh """
-    //       pwd
-    //       ls -lah
-    //     """
-    //   }
-
-    // }
   }
   post {
     always {
@@ -258,3 +214,51 @@ pipeline {
     //     ]
     //   ]
     // )
+
+
+
+    // 
+
+        // stage('Build') {
+    //   steps {
+    //     script {
+    //       echo "Display ${params.JSONData}"
+
+    //       sh '''
+    //         pwd
+    //         ls -lah
+    //         env
+    //       '''
+
+    //       // if(env.JSONData_FILENAME) {
+    //       if (env.JSONData_FILENAME) {
+    //         echo "Environment variable JSONData_FILENAME found. Unstashing the file..."
+    //         unstash "JSONData"
+
+    //         sh '''
+    //           pwd
+    //           ls -lah
+    //           cat JSONData
+    //           env
+    //         '''
+    //       } else {
+    //         echo "Sorry"
+    //         sh '''
+    //           pwd
+    //           ls -lah
+    //           env
+    //         '''
+    //       }
+    //     }
+    //   }
+    // }
+
+    // stage('Test') {
+    //   steps {
+    //     sh """
+    //       pwd
+    //       ls -lah
+    //     """
+    //   }
+
+    // }
