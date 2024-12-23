@@ -18,7 +18,7 @@ pipeline {
       steps {
         script {
           // sh(script: "export VAULT_ADDR='http://0.0.0.0:8200' && vault kv get -format=json -mount=secret_kv -field=data ${SECRET_PATH}", returnStatus: true)
-          echo ${params.IP}
+          echo "${params.IP}"
         }
       }
     }
