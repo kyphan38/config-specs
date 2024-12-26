@@ -26,7 +26,6 @@ pipeline {
                 env
             '''
           } else {
-            echo "Sorry"
             sh '''
               pwd
               ls -lah
