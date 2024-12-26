@@ -3,7 +3,7 @@ services:
   jenkins:
     image: jenkins:latest
     build:
-      context: ./config
+      context: ../../config/jenkins
       dockerfile: Dockerfile
     container_name: jenkins
     ports:
@@ -17,15 +17,12 @@ services:
       - net
 
   vault:
-    image: hashicorp/vault:latest
+    build:
+      context: ../../config/vault
+      dockerfile: Dockerfile
     container_name: vault
     ports:
-      - 8200:8200
-    # volumes:
-    #   - ./logs/vault_logs:
-    environment:
-      - VAULT_ADDR='http://0.0.0.0:8200'
-      - VAULT_DEV_ROOT_TOKEN_ID='myroot'
+      - "8200:8200"
     networks:
       - net
 

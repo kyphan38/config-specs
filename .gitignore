@@ -1,3 +1,5 @@
-*/logs/
-*/remoting/
+# Jenkins
+**/caches
+**/logs/
+**/remoting/
 *.jar

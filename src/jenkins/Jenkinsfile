@@ -8,8 +8,8 @@ pipeline {
       name: 'IP', 
       defaultValue: '10.', 
       regex: /^(10(\.(\d|[1-9]\d|1\d{2}|2[0-4]\d|25[0-5])){3}\s?)+$/,
-      failedValidationMessage: 'Should not be empty and must be in the range of valid IPs. For multiple, separate by space.', 
-      description: ''
+      failedValidationMessage: 'Should not be empty and must be in the range of valid IPs', 
+      description: 'Enter the IPs in range of 10. . For multiple ones, seprate in spaec'
     )
   }
 
@@ -21,7 +21,7 @@ pipeline {
           sh '''
             for ip in $IP; do
               echo $ip
-            done
+            donehttps://smstome.com/finland/phone/3584573966484/sms/8626
           '''
         }
       }
