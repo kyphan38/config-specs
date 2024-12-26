@@ -1,0 +1,1 @@
+curl -sO http://localhost:8080/jnlpJars/agent.jar;java -jar agent.jar -url http://localhost:8080/ -secret a2ce93dd127bf8c086058b2ccf6dc43cc57dc8721e8d1c2854b7d4a2cdf5cd64 -name agent -workDir "/home/kyphan/Documents/template/agent"
