@@ -1,0 +1,49 @@
+pipeline {
+  agent any
+
+  environment {
+    JSONData_FILENAME = 'sample.json' // Example environment variable
+  }
+
+  stages {
+    stage('Build') {
+      steps {
+        script {
+          sh '''
+            pwd
+            ls -lah
+            env
+          '''
+
+          if (env.JSONData_FILENAME) {
+            echo "Environment variable JSONData_FILENAME found. Unstashing the file..."
+            unstash "JSONData"
+
+            sh '''
+                pwd
+                ls -lah
+                cat JSONData
+                env
+            '''
+          } else {
+            echo "Sorry"
+            sh '''
+              pwd
+              ls -lah
+              env
+            '''
+          }
+        }
+      }
+    }
+
+    stage('Test') {
+      steps {
+        sh '''
+          pwd
+          ls -lah
+        '''
+      }
+    }
+  }
+}
