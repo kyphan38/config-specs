@@ -5,7 +5,7 @@ pipeline {
   stages {
     stage('Prepare') {
       steps {
-        sh """
+        sh '''
           export CIDR_IP="10.16.0.0/16"
 
           set -e
@@ -17,16 +17,15 @@ pipeline {
             "IpRanges": [
               {
                 "CidrIp": "$CIDR",
-                "Description": "Testing"
+                "Description": 'Testing'
               }
             ]
-          }]
+          }]"
           
-
           echo $sshRule
                 
           aws ec2 authorize-security-group-ingress --group-id sg-045fe18ad1e385c69 --ip-permissions "$sshRule"
-        """
+        '''
       }
     }
   }
