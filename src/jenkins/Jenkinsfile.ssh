@@ -10,8 +10,7 @@ pipeline {
 
           set -e
 
-          sshRule=$(cat <<EOF
-          [
+          sshRule='[
             {
               "IpProtocol": "tcp",
               "FromPort": 22,
@@ -23,9 +22,7 @@ pipeline {
                 }
               ]
             }
-          ]
-          EOF
-          )
+          ]'
           
           echo $sshRule
                 
