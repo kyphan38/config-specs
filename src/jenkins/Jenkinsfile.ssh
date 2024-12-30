@@ -1,0 +1,41 @@
+pipeline {
+  agent any
+
+
+  stages {
+    stage('Prepare') {
+      steps {
+        sh """
+          export CIDR_IP="10.16.0.0/16"
+
+          set -e
+
+          sshRule="[{
+            "IpProtocol": "tcp",
+            "FromPort": 22,
+            "ToPort": 22,
+            "IpRanges": [
+              {
+                "CidrIp": "$CIDR",
+                "Description": "Testing"
+              }
+            ]
+          }]
+          
+
+          echo $sshRule
+                
+          aws ec2 authorize-security-group-ingress --group-id sg-045fe18ad1e385c69 --ip-permissions "$sshRule"
+        """
+      }
+    }
+  }
+  
+  post {
+    always {
+      script {
+        cleanWs()
+      }
+    }
+  }
+}

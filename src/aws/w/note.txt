@@ -1,0 +1,22 @@
+// List security groups
+aws ec2 describe-instances --filters "Name=private-ip-address,Values=10.16.60.226" --output text --query "Reservations[*].Instances[*].SecurityGroups[*].GroupId" --dry-run
+
+// => Output: sg-00fbf4a9cfccedc8b sg-0e410f53dbf5230a4
+
+aws ec2 describe-security-groups --filter --group-ids $group --query "SecurityGroups[*].Tags[*]" --output text
+
+sshRule='[
+  {
+    "IpProtocol": "tcp",
+    "FromPort": 22,
+    "ToPort": 22,
+    "IpRanges": [
+      {
+        "CidrIp": "10.16.0.0/16",
+        "Description": "Testing"
+      }
+    ]
+  }
+]'
+
+aws ec2 authorize-security-group-ingress --group-id sg-0e410f53dbf5230a4 --ip-permissions "$sshRule"

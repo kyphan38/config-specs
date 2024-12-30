@@ -3,12 +3,12 @@
 action=$1
 
 if [[ $action == "validate" ]]; then
-  aws cloudformation validate-template --template-body file://vpc.yaml
+  aws cloudformation validate-template --template-body file://a4l_vpc.yaml
 
 elif [[ $action == "create" ]]; then
   aws cloudformation create-stack \
   --stack-name my-stack \
-  --template-body file://vpc.yaml
+  --template-body file://a4l_vpc.yaml
 
 elif [[ $action == "delete" ]]; then
   aws cloudformation delete-stack --stack-name my-stack
