@@ -20,3 +20,9 @@ sshRule='[
 ]'
 
 aws ec2 authorize-security-group-ingress --group-id sg-045fe18ad1e385c69 --ip-permissions "$sshRule" &>/dev/null || true
+
+// S3
+test-s3-52j12
+
+// Get secret manager
+

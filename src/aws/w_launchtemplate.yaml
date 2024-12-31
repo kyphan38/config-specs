@@ -1,0 +1,51 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Simple EC2 Launch Template with Instance Creation"
+
+Resources:
+  MyLaunchTemplate:
+    Type: "AWS::EC2::LaunchTemplate"
+    Properties:
+      LaunchTemplateName: "MyLaunchTemplate-Unique-123"
+      LaunchTemplateData:
+        InstanceType: "t2.micro"
+        ImageId: "ami-01816d07b1128cd2d"
+        UserData:
+          Fn::Base64: !Sub |
+            #!/bin/bash -x
+            echo "Hello, World!"
+            PASSWORD=$(aws ssm get-parameter --name "/test/env/PASSWORD" --with-decryption --query 'Parameter.Value' --output text)
+            
+            # S3 copy
+            aws s3 cp s3://test-s3-52j12/abc.sh /tmp/abc.sh
+            chmod +x /tmp/abc.sh
+            /tmp/abc.sh $PASSWORD
+
+        TagSpecifications:
+          - ResourceType: "instance"
+            Tags:
+              - Key: "Name"
+                Value: "MyInstance"
+              - Key: "Environment"
+                Value: "Dev"
+
+  MyInstance:
+    Type: "AWS::EC2::Instance"
+    DependsOn: MyLaunchTemplate
+    Properties:
+      LaunchTemplate:
+        LaunchTemplateName: !Ref MyLaunchTemplate
+        Version: !GetAtt MyLaunchTemplate.LatestVersionNumber
+      Tags:
+        - Key: "Name"
+          Value: "MyInstanceFromTemplate"
+        - Key: "Environment"
+          Value: "Dev"
+
+Outputs:
+  LaunchTemplateId:
+    Description: "The ID of the Launch Template."
+    Value: !Ref MyLaunchTemplate
+
+  InstanceId:
+    Description: "The ID of the EC2 Instance."
+    Value: !Ref MyInstance
