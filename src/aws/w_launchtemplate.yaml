@@ -28,24 +28,8 @@ Resources:
               - Key: "Environment"
                 Value: "Dev"
 
-  MyInstance:
-    Type: "AWS::EC2::Instance"
-    DependsOn: MyLaunchTemplate
-    Properties:
-      LaunchTemplate:
-        LaunchTemplateName: !Ref MyLaunchTemplate
-        Version: !GetAtt MyLaunchTemplate.LatestVersionNumber
-      Tags:
-        - Key: "Name"
-          Value: "MyInstanceFromTemplate"
-        - Key: "Environment"
-          Value: "Dev"
 
 Outputs:
   LaunchTemplateId:
     Description: "The ID of the Launch Template."
     Value: !Ref MyLaunchTemplate
-
-  InstanceId:
-    Description: "The ID of the EC2 Instance."
-    Value: !Ref MyInstance
