@@ -7,8 +7,6 @@ pipeline {
         sh '''
           export CIDR_IP="10.16.0.0/16"
 
-          set -e
-
           sshRule='[
             {
               "IpProtocol": "tcp",
