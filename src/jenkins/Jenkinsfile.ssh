@@ -1,7 +1,6 @@
 pipeline {
   agent any
 
-
   stages {
     stage('Prepare') {
       steps {
@@ -26,7 +25,14 @@ pipeline {
           
           echo $sshRule
                 
-          aws ec2 authorize-security-group-ingress --group-id sg-045fe18ad1e385c69 --ip-permissions "$sshRule"
+          output=$(aws ec2 authorize-security-group-ingress --group-id sg-045fe18ad1e385c69 --ip-permissions "$sshRule" 2>&1)
+          exit_status=$?
+          if [[ $exit_status -eq 0 ]]; then 
+            echo "Added successfully"
+          else
+            echo "Error: $output"
+          fi
+
         '''
       }
     }
