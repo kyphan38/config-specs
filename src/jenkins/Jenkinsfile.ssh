@@ -25,7 +25,7 @@ pipeline {
           
           echo $sshRule
                 
-          output=$(aws ec2 authorize-security-group-ingress --group-id sg-045fe18ad1e385c69 --ip-permissions "$sshRule" 2>&1)
+          output=$(aws ec2 authorize-security-group-ingress --group-id sg-0bf8de7b0ac4b3f40 --ip-permissions "$sshRule" 2>&1)
           exit_status=$?
           if [[ $exit_status -eq 0 ]]; then 
             echo "Added successfully"
