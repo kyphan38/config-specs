@@ -19,7 +19,34 @@ sshRule='[
   }
 ]'
 
-aws ec2 authorize-security-group-ingress --group-id sg-045fe18ad1e385c69 --ip-permissions "$sshRule" &>/dev/null || true
+aws ec2 authorize-security-group-ingress --group-id sg-0bf8de7b0ac4b3f40 --ip-permissions "$sshRule" &>/dev/null || true
+
+//
+
+sshRule='[
+  {
+    "IpProtocol": "tcp",
+    "FromPort": 22,
+    "ToPort": 22,
+    "IpRanges": [
+      {
+        "CidrIp": "10.16.0.0/16",
+        "Description": "Testing"
+      }
+    ]
+  }
+]'
+
+output=$(aws ec2 authorize-security-group-ingress --group-id sg-0bf8de7b0ac4b3f40 --ip-permissions "$sshRule" 2>&1)
+exit_status=$?
+
+# Check the exit status
+if [ $exit_status -eq 0 ]; then
+  echo "Adding successfully"
+else
+  echo "Error occurred: $output"
+fi
+
 
 // S3
 test-s3-52j12
