@@ -17,7 +17,15 @@ pipeline {
     stage('Prepare') {
       steps {
         script {
-          echo "Your provided IP: ${params.IP}"
+          sh '''
+            export JENKINS_URL="abc"
+            if [[ $JENKINS_URL =~ "abc" ]]; then
+              echo "This right"
+            else
+              echo "Not found"
+              exit 1
+            fi
+          '''
         }
       }
     }
