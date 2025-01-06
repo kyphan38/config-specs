@@ -5,6 +5,8 @@ pipeline {
     stage('Prepare') {
       steps {
         sh '''
+          #!/bin/bash
+
           export CIDR_IP="10.16.0.0/16"
 
           sshRule='[
