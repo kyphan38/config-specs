@@ -18,6 +18,8 @@ pipeline {
       steps {
         script {
           sh '''
+            #!/bin/bash
+
             export JENKINS_URL="abc"
             if [[ $JENKINS_URL =~ "abc" ]]; then
               echo "This right"
