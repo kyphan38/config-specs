@@ -32,7 +32,9 @@ pipeline {
             else
               errorFlag=1;
             fi
-          } || { echo "Stupid" }
+          } || { 
+            echo "Stupid" 
+          }
 
           if [ $errorFlag -eq 1 ]; then 
             echo "Error found"
