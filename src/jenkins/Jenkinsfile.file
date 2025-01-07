@@ -11,6 +11,8 @@ pipeline {
         script {
           echo "Hello"
           sh '''
+            set +x
+
             ls -lah
             touch ./hello.txt
             password=qwdjqwdqwdmqwmdmqwmdm
