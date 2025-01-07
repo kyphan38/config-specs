@@ -6,42 +6,27 @@ pipeline {
   }
 
   stages {
-    stage('Build') {
+    stage('Testing') {
       steps {
         script {
+          echo "Hello"
           sh '''
-            pwd
             ls -lah
-            env
+            touch ./hello.txt
+            password=qwdjqwdqwdmqwmdmqwmdm
+            echo "password=$password" >> ./hello.txt
           '''
 
-          if (env.JSONData_FILENAME) {
-            echo "Environment variable JSONData_FILENAME found. Unstashing the file..."
-            unstash "JSONData"
 
-            sh '''
-                pwd
-                ls -lah
-                cat JSONData
-                env
-            '''
-          } else {
-            sh '''
-              pwd
-              ls -lah
-              env
-            '''
-          }
         }
       }
     }
+  }
 
-    stage('Test') {
-      steps {
-        sh '''
-          pwd
-          ls -lah
-        '''
+  post {
+    always {
+      script {
+        cleanWs()
       }
     }
   }

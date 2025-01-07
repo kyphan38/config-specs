@@ -32,7 +32,7 @@ pipeline {
             else
               errorFlag=1;
             fi
-          } && { 
+          } &&e { 
             echo "Stupid" 
           }
 
