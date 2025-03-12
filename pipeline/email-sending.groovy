@@ -23,4 +23,15 @@ pipeline() {
       }
     }
   }
+  post {
+    always {
+      mail to: 'andy30082002@gmail.com',
+      subject: "Jenkins Build ${currentBuild.fullDisplayName}",
+      body: """
+        Build Details:
+        Status: ${currentBuild.currentResult}
+        Build URL: ${env.BUILD_URL}
+      """
+    }
+  }
 }
