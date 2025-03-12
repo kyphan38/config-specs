@@ -33,7 +33,7 @@ pipeline {
               errorFlag=1;
             fi
           } &&e { 
-            echo "Stupid" 
+            echo "Hi" 
           }
 
           if [ $errorFlag -eq 1 ]; then 
