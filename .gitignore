@@ -1,0 +1,6 @@
+# Jenkins
+**/caches
+**/logs/
+**/remoting/
+**/pipeline@tmp/
+*.jar

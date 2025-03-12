@@ -1,0 +1,352 @@
+
+AWSTemplateFormatVersion: 2010-09-09
+Description:  Cloudformation template to create the Animals4Life VPC and 12 subnets. Designed to skip ahead to this point in the course.
+  When applying this template you will be ready to complete the DEMO lesson Configuring A4l public subnets and Jumpbox
+Metadata:
+  LICENSE: Apache License Version 2.0
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.16.0.0/16
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+        - Key: Name
+          Value: a4l-vpc1
+  IPv6CidrBlock:
+    Type: AWS::EC2::VPCCidrBlock
+    Properties:
+      VpcId: !Ref VPC
+      AmazonProvidedIpv6CidrBlock: true
+  SubnetReservedA:
+    Type: AWS::EC2::Subnet
+    DependsOn: IPv6CidrBlock
+    Properties:
+      VpcId: !Ref VPC
+      AvailabilityZone: !Select [ 0, !GetAZs '' ]
+      CidrBlock: 10.16.0.0/20
+      AssignIpv6AddressOnCreation: true
+      Ipv6CidrBlock: 
+        Fn::Sub:
+          - "${VpcPart}${SubnetPart}"
+          - SubnetPart: '00::/64'
+            VpcPart: !Select [ 0, !Split [ '00::/56', !Select [ 0, !GetAtt VPC.Ipv6CidrBlocks ]]]
+      Tags:
+        - Key: Name
+          Value: sn-reserved-A
+  SubnetReservedB:
+    Type: AWS::EC2::Subnet
+    DependsOn: IPv6CidrBlock
+    Properties:
+      VpcId: !Ref VPC
+      AvailabilityZone: !Select [ 1, !GetAZs '' ]
+      CidrBlock: 10.16.64.0/20
+      AssignIpv6AddressOnCreation: true
+      Ipv6CidrBlock: 
+        Fn::Sub:
+          - "${VpcPart}${SubnetPart}"
+          - SubnetPart: '04::/64'
+            VpcPart: !Select [ 0, !Split [ '00::/56', !Select [ 0, !GetAtt VPC.Ipv6CidrBlocks ]]]
+      Tags:
+        - Key: Name
+          Value: sn-reserved-B
+  SubnetReservedC:
+    Type: AWS::EC2::Subnet
+    DependsOn: IPv6CidrBlock
+    Properties:
+      VpcId: !Ref VPC
+      AvailabilityZone: !Select [ 2, !GetAZs '' ]
+      CidrBlock: 10.16.128.0/20
+      AssignIpv6AddressOnCreation: true
+      Ipv6CidrBlock: 
+        Fn::Sub:
+          - "${VpcPart}${SubnetPart}"
+          - SubnetPart: '08::/64'
+            VpcPart: !Select [ 0, !Split [ '00::/56', !Select [ 0, !GetAtt VPC.Ipv6CidrBlocks ]]]
+      Tags:
+        - Key: Name
+          Value: sn-reserved-C
+  SubnetDBA:
+    Type: AWS::EC2::Subnet
+    DependsOn: IPv6CidrBlock
+    Properties:
+      VpcId: !Ref VPC
+      AvailabilityZone: !Select [ 0, !GetAZs '' ]
+      CidrBlock: 10.16.16.0/20
+      AssignIpv6AddressOnCreation: true
+      Ipv6CidrBlock: 
+        Fn::Sub:
+          - "${VpcPart}${SubnetPart}"
+          - SubnetPart: '01::/64'
+            VpcPart: !Select [ 0, !Split [ '00::/56', !Select [ 0, !GetAtt VPC.Ipv6CidrBlocks ]]]
+      Tags:
+        - Key: Name
+          Value: sn-db-A
+  SubnetDBB:
+    Type: AWS::EC2::Subnet
+    DependsOn: IPv6CidrBlock
+    Properties:
+      VpcId: !Ref VPC
+      AvailabilityZone: !Select [ 1, !GetAZs '' ]
+      CidrBlock: 10.16.80.0/20
+      AssignIpv6AddressOnCreation: true
+      Ipv6CidrBlock: 
+        Fn::Sub:
+          - "${VpcPart}${SubnetPart}"
+          - SubnetPart: '05::/64'
+            VpcPart: !Select [ 0, !Split [ '00::/56', !Select [ 0, !GetAtt VPC.Ipv6CidrBlocks ]]]
+      Tags:
+        - Key: Name
+          Value: sn-db-B
+  SubnetDBC:
+    Type: AWS::EC2::Subnet
+    DependsOn: IPv6CidrBlock
+    Properties:
+      VpcId: !Ref VPC
+      AvailabilityZone: !Select [ 2, !GetAZs '' ]
+      CidrBlock: 10.16.144.0/20
+      AssignIpv6AddressOnCreation: true
+      Ipv6CidrBlock: 
+        Fn::Sub:
+          - "${VpcPart}${SubnetPart}"
+          - SubnetPart: '09::/64'
+            VpcPart: !Select [ 0, !Split [ '00::/56', !Select [ 0, !GetAtt VPC.Ipv6CidrBlocks ]]]
+      Tags:
+        - Key: Name
+          Value: sn-db-C
+  SubnetAPPA:
+    Type: AWS::EC2::Subnet
+    DependsOn: IPv6CidrBlock
+    Properties:
+      VpcId: !Ref VPC
+      AvailabilityZone: !Select [ 0, !GetAZs '' ]
+      CidrBlock: 10.16.32.0/20
+      AssignIpv6AddressOnCreation: true
+      Ipv6CidrBlock: 
+        Fn::Sub:
+          - "${VpcPart}${SubnetPart}"
+          - SubnetPart: '02::/64'
+            VpcPart: !Select [ 0, !Split [ '00::/56', !Select [ 0, !GetAtt VPC.Ipv6CidrBlocks ]]]
+      Tags:
+        - Key: Name
+          Value: sn-app-A
+  SubnetAPPB:
+    Type: AWS::EC2::Subnet
+    DependsOn: IPv6CidrBlock
+    Properties:
+      VpcId: !Ref VPC
+      AvailabilityZone: !Select [ 1, !GetAZs '' ]
+      CidrBlock: 10.16.96.0/20
+      AssignIpv6AddressOnCreation: true
+      Ipv6CidrBlock: 
+        Fn::Sub:
+          - "${VpcPart}${SubnetPart}"
+          - SubnetPart: '06::/64'
+            VpcPart: !Select [ 0, !Split [ '00::/56', !Select [ 0, !GetAtt VPC.Ipv6CidrBlocks ]]]
+      Tags:
+        - Key: Name
+          Value: sn-app-B
+  SubnetAPPC:
+    Type: AWS::EC2::Subnet
+    DependsOn: IPv6CidrBlock
+    Properties:
+      VpcId: !Ref VPC
+      AvailabilityZone: !Select [ 2, !GetAZs '' ]
+      CidrBlock: 10.16.160.0/20
+      AssignIpv6AddressOnCreation: true
+      Ipv6CidrBlock: 
+        Fn::Sub:
+          - "${VpcPart}${SubnetPart}"
+          - SubnetPart: '0A::/64'
+            VpcPart: !Select [ 0, !Split [ '00::/56', !Select [ 0, !GetAtt VPC.Ipv6CidrBlocks ]]]
+      Tags:
+        - Key: Name
+          Value: sn-app-C
+  SubnetWEBA:
+    Type: AWS::EC2::Subnet
+    DependsOn: IPv6CidrBlock
+    Properties:
+      VpcId: !Ref VPC
+      AvailabilityZone: !Select [ 0, !GetAZs '' ]
+      CidrBlock: 10.16.48.0/20
+      AssignIpv6AddressOnCreation: true
+      Ipv6CidrBlock: 
+        Fn::Sub:
+          - "${VpcPart}${SubnetPart}"
+          - SubnetPart: '03::/64'
+            VpcPart: !Select [ 0, !Split [ '00::/56', !Select [ 0, !GetAtt VPC.Ipv6CidrBlocks ]]]
+      Tags:
+        - Key: Name
+          Value: sn-web-A
+  SubnetWEBB:
+    Type: AWS::EC2::Subnet
+    DependsOn: IPv6CidrBlock
+    Properties:
+      VpcId: !Ref VPC
+      AvailabilityZone: !Select [ 1, !GetAZs '' ]
+      CidrBlock: 10.16.112.0/20
+      AssignIpv6AddressOnCreation: true
+      Ipv6CidrBlock: 
+        Fn::Sub:
+          - "${VpcPart}${SubnetPart}"
+          - SubnetPart: '07::/64'
+            VpcPart: !Select [ 0, !Split [ '00::/56', !Select [ 0, !GetAtt VPC.Ipv6CidrBlocks ]]]
+      Tags:
+        - Key: Name
+          Value: sn-web-B
+  SubnetWEBC:
+    Type: AWS::EC2::Subnet
+    DependsOn: IPv6CidrBlock
+    Properties:
+      VpcId: !Ref VPC
+      AvailabilityZone: !Select [ 2, !GetAZs '' ]
+      CidrBlock: 10.16.176.0/20
+      AssignIpv6AddressOnCreation: true
+      Ipv6CidrBlock: 
+        Fn::Sub:
+          - "${VpcPart}${SubnetPart}"
+          - SubnetPart: '0B::/64'
+            VpcPart: !Select [ 0, !Split [ '00::/56', !Select [ 0, !GetAtt VPC.Ipv6CidrBlocks ]]]
+      Tags:
+        - Key: Name
+          Value: sn-web-C
+
+  EIPA:
+    Type: AWS::EC2::EIP
+    Properties:
+      Domain: vpc
+      Tags:
+        - Key: Name
+          Value: eip-natgw-webA
+  
+  EIPB:
+    Type: AWS::EC2::EIP
+    Properties:
+      Domain: vpc
+      Tags:
+        - Key: Name
+          Value: eip-natgw-webB
+          
+  EIPC:
+    Type: AWS::EC2::EIP
+    Properties:
+      Domain: vpc
+      Tags:
+        - Key: Name
+          Value: eip-natgw-webC     
+
+  IGW:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          Value: a4l-vpc1-igw
+
+  IGWATTACH:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref VPC
+      InternetGatewayId: !Ref IGW
+
+    
+  NATGWEBA:
+    Type: AWS::EC2::NatGateway
+    Properties:
+      SubnetId: !Ref SubnetWEBA
+      AllocationId: !GetAtt EIPA.AllocationId
+      Tags:
+        - Key: Name
+          Value: a4l-vpc1-natgw-A
+
+  NATGWEBB:
+    Type: AWS::EC2::NatGateway
+    Properties:
+      SubnetId: !Ref SubnetWEBB
+      AllocationId: !GetAtt EIPB.AllocationId
+      Tags:
+        - Key: Name
+          Value: a4l-vpc1-natgw-B
+
+  NATGWEBC:
+    Type: AWS::EC2::NatGateway
+    Properties:
+      SubnetId: !Ref SubnetWEBC
+      AllocationId: !GetAtt EIPC.AllocationId
+      Tags:
+        - Key: Name
+          Value: a4l-vpc1-natgw-C
+
+  RTWEBA:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:  
+        Ref: VPC
+      Tags:
+      - Key: Name
+        Value: a4l-vpc1-rt-privateA
+
+  RTWEBB:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:  
+        Ref: VPC
+      Tags:
+      - Key: Name
+        Value: a4l-vpc1-rt-privateB
+
+  RTWEBC:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:  
+        Ref: VPC
+      Tags:
+      - Key: Name
+        Value: a4l-vpc1-rt-privateC
+
+  ROUTEWEBA:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref RTWEBA
+      DestinationCidrBlock: 0.0.0.0/0
+      NatGatewayId: !Ref NATGWEBA
+
+  ROUTEWEBB:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref RTWEBB
+      DestinationCidrBlock: 0.0.0.0/0
+      NatGatewayId: !Ref NATGWEBB
+
+  ROUTEWEBC:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref RTWEBC
+      DestinationCidrBlock: 0.0.0.0/0
+      NatGatewayId: !Ref NATGWEBC
+
+  # Just example for A
+  APPSUBNETRTA:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref SubnetAPPA
+      RouteTableId: !Ref RTWEBA
+
+  DBSUBNETRTA:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref SubnetDBA
+      RouteTableId: !Ref RTWEBA
+
+  RSSUBNETRTA:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref SubnetReservedA
+      RouteTableId: !Ref RTWEBA
+
+
+  WEBSUBNETRTA:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref SubnetWEBA
+      RouteTableId: !Ref RTWEBA

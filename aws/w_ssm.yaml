@@ -1,0 +1,9 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  SSMParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: "/test/env/PASSWORD"
+      Type: String
+      Value: "simplepassword123"
+      Description: "Password for testing purposes"
