@@ -45,10 +45,29 @@ pipeline() {
           def expiry25Json = groovy.json.JsonOutput.toJson(expiry25Days)
 
           sh """
-            python3 -m venv venv
-            source venv/bin/activate
-            pip3 install -r pipeline/email-pipeline/requirements.txt
-            python3 pipeline/email-pipeline/main.py '${expiry15Json}' '${expiry25Json}'
+            #!/bin/bash
+            set -e  # Exit on error
+            
+            # Check which python is available
+            if command -v python3 &>/dev/null; then
+                PYTHON_CMD=python3
+            elif command -v python &>/dev/null; then
+                PYTHON_CMD=python
+                \$PYTHON_CMD -c "import sys; assert sys.version_info >= (3,0)" || { echo "Python 3 required"; exit 1; }
+            else
+                echo "No Python 3 found"
+                exit 1
+            fi
+
+            # Create and activate virtual environment
+            \$PYTHON_CMD -m venv venv
+            . venv/bin/activate
+
+            # Install requirements
+            pip install -r pipeline/email-pipeline/requirements.txt
+
+            # Run the script
+            \$PYTHON_CMD pipeline/email-pipeline/main.py '${expiry15Json}' '${expiry25Json}'
           """
         }
       }
