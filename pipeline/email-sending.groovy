@@ -36,7 +36,7 @@ pipeline() {
       steps {
         script {
           def envs = ["dev", "test", "prod"]
-          def template = readFile 'email-template.html'
+          def template = readFile './template/report.html'
 
           def binding = [
             "envs": envs,
@@ -77,7 +77,7 @@ pipeline() {
     //     }
     //   }
     // }
-    
+
   post {
     always {
       cleanWs()
