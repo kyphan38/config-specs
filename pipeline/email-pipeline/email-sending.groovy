@@ -29,7 +29,7 @@ pipeline() {
             example_output["user_c"] = 15
 
             example_output.each { user, expiryDays ->
-              if(expiryDays) == 15 {
+              if(expiryDays == 15) {
                 expiry15Days[user] = expiryDays
               } else if (expiryDays == 25) {
                 expiry25Days[user] = expiryDays
