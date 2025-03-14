@@ -1,7 +1,10 @@
 #!/usr/bin/env groovy
 
-def expiryDays15 = [:]
-def expiryDays25 = [:]
+def expiry15Days = [:]
+def expiry15DaysFlag = False
+def expiry25Days = [:]
+def expiry25DaysFlag = False
+
 
 
 pipeline() {
@@ -11,20 +14,25 @@ pipeline() {
     stage('Execute') {
       steps {
         script {
-          def envs = ["dev", "test", "prod"]
+          def envs = ["dev", "test", "nonprod", "prod"]
 
           for (env in envs) {
+
+            // example_output is a map
             def example_output = [:]
 
-            example_output["user_a"] = 15
+            example_output["user_a"] = 25
+            if (env == "test") {
+              example_output["user_a"] = 15
+            }
             example_output["user_b"] = 25
             example_output["user_c"] = 15
 
             example_output.each { user, expiryDays ->
-              if (expiryDays == 15) {
-                expiryDays15[user] = 15
+              if(expiryDays) == 15 {
+                expiry15Days[user] = expiryDays
               } else if (expiryDays == 25) {
-                expiryDays25[user] = 25
+                expiry25Days[user] = expiryDays
               }
             }
           }
@@ -32,24 +40,27 @@ pipeline() {
       }
     }
 
+    stage('Prepare report') {
+      steps {
+        script {
+          def expiry15Json = groovy.json.JsonOutput.toJson(expiry15Days)
+          def expiry25Json = groovy.json.JsonOutput.toJson(expiry25Days)
+
+          sh """
+            pip3 install -r requirements.txt
+            python3 main.py '${expiry15Json}' '${expiry25Json}'
+          """
+        }
+      }
+    }
+
     stage('Sending email') {
       steps {
         script {
-          def envs = ["dev", "test", "prod"]
-  
-          def template = readFile "${env.WORKSPACE}/pipeline/email-template/report.html"
-
-          def binding = [
-            "envs": envs,
-            "expiry15": expiryDays15,
-            "expiry25": expiryDays25
-          ]
-
-          echo "${template}"
           
           emailext (
             mimeType: 'text/html',
-            body: emailBody,
+            body: '${FILE,path="formatted-report.html"}',
             subject: 'User Expiry Report',
             from: 'tienky30082002@gmail.com',
             to: 'andy30082002@gmail.com'
@@ -58,6 +69,13 @@ pipeline() {
       }
     }
   }
+
+  post {
+    always {
+      cleanWs()
+    }
+  }
+}
 
     // stage('SSH') {
     //   steps {
@@ -77,10 +95,3 @@ pipeline() {
     //     }
     //   }
     // }
-
-  post {
-    always {
-      cleanWs()
-    }
-  }
-}
