@@ -44,10 +44,9 @@ pipeline() {
             "expiry15": expiryDays15,
             "expiry25": expiryDays25
           ]
-          
-          def shell = new GroovyShell(new Binding(binding))
-          def emailBody = shell.evaluate('"""' + template + '"""')
 
+          echo "${template}"
+          
           emailext (
             mimeType: 'text/html',
             body: emailBody,
