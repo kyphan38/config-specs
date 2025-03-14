@@ -33,43 +33,54 @@ pipeline() {
     }
 
     stage('Sending email') {
-      steps {
-        script {
-          // Generate HTML table content for email
-          def generateTable(env) {
-            def tableContent = "<h3>${env} Environment</h3><table border='1'><tr><th>User</th><th>Expiry Date</th></tr>"
-            
-            // Add rows for users with expiryDays15
-            expiryDays15.each { user, expiryDays ->
-              tableContent += "<tr><td>${user}</td><td>${expiryDays}</td></tr>"
-            }
-            
-            // Add rows for users with expiryDays25
-            expiryDays25.each { user, expiryDays ->
-              tableContent += "<tr><td>${user}</td><td>${expiryDays}</td></tr>"
-            }
-            
-            tableContent += "</table><br>"
-            return tableContent
-          }
-          
-          // Prepare the email body with the table for each environment
-          def emailBody = ""
-          def envs = ["dev", "test", "prod"]
-          
-          envs.each { env ->
-            emailBody += generateTable(env)
-          }
+            steps {
+                script {
+                    // Create HTML table content
+                    def emailBody = "<html><body>"
+                    
+                    // Add tables for each environment
+                    def envs = ["dev", "test", "prod"]
+                    envs.each { env ->
+                        emailBody += "<h3>${env}</h3>"
+                        emailBody += "<table border='1' cellpadding='5'>"
+                        emailBody += "<tr><th>User</th><th>Expiry Date</th></tr>"
+                        
+                        // Add 15-day expiry users
+                        expiryDays15.each { user, days ->
+                            emailBody += "<tr><td>${user}</td><td>${days} days</td></tr>"
+                        }
+                        
+                        // Add 25-day expiry users
+                        expiryDays25.each { user, days ->
+                            emailBody += "<tr><td>${user}</td><td>${days} days</td></tr>"
+                        }
+                        
+                        emailBody += "</table><br>"
+                    }
+                    
+                    emailBody += "</body></html>"
 
-          emailext mimeType: 'text/html', 
-                   body: emailBody,
-                   subject: 'Expiry Date Report',
-                   from: 'tienky30082002@gmail.com',
-                   to: 'andy30082002@gmail.com'
+                    emailext (
+                        mimeType: 'text/html',
+                        body: emailBody,
+                        subject: 'User Expiry Report',
+                        from: 'tienky30082002@gmail.com',
+                        to: 'andy30082002@gmail.com'
+                    )
+                }
+            }
         }
-      }
     }
-  
+
+    // stage('Sending email') {
+    //   steps {
+    //     emailext mimeType: 'text/html'
+    //     body: 'Test Message',
+    //     subject: 'Test Subject',
+    //     from: 'tienky30082002@gmail.com'
+    //     to: 'andy30082002@gmail.com'
+    //   }
+    // }
     // stage('SSH') {
     //   steps {
     //     script {
