@@ -34,11 +34,42 @@ pipeline() {
 
     stage('Sending email') {
       steps {
-        emailext body: 'Test Message',
-        subject: 'Test Subject',
-        to: 'andy30082002@gmail.com'
+        script {
+          // Generate HTML table content for email
+          def generateTable(env) {
+            def tableContent = "<h3>${env} Environment</h3><table border='1'><tr><th>User</th><th>Expiry Date</th></tr>"
+            
+            // Add rows for users with expiryDays15
+            expiryDays15.each { user, expiryDays ->
+              tableContent += "<tr><td>${user}</td><td>${expiryDays}</td></tr>"
+            }
+            
+            // Add rows for users with expiryDays25
+            expiryDays25.each { user, expiryDays ->
+              tableContent += "<tr><td>${user}</td><td>${expiryDays}</td></tr>"
+            }
+            
+            tableContent += "</table><br>"
+            return tableContent
+          }
+          
+          // Prepare the email body with the table for each environment
+          def emailBody = ""
+          def envs = ["dev", "test", "prod"]
+          
+          envs.each { env ->
+            emailBody += generateTable(env)
+          }
+
+          emailext mimeType: 'text/html', 
+                   body: emailBody,
+                   subject: 'Expiry Date Report',
+                   from: 'tienky30082002@gmail.com',
+                   to: 'andy30082002@gmail.com'
+        }
       }
     }
+  }
     // stage('SSH') {
     //   steps {
     //     script {
