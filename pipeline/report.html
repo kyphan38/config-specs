@@ -1,0 +1,16 @@
+<html>
+<body>
+<% envs.each { env -> %>
+  <h3>${env}</h3>
+  <table border="1" cellpadding="5">
+    <tr><th>User</th><th>Expiry Date</th></tr>
+    <% expiry15.each { user, days -> %>
+      <tr><td>${user}</td><td>${days} days</td></tr>
+    <% } %>
+    <% expiry25.each { user, days -> %>
+      <tr><td>${user}</td><td>${days} days</td></tr>
+    <% } %>
+  </table><br>
+<% } %>
+</body>
+</html>

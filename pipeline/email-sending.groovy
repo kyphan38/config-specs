@@ -36,7 +36,7 @@ pipeline() {
       steps {
         script {
           def envs = ["dev", "test", "prod"]
-          def template = readFile './template/report.html'
+          def template = readFile 'report.html'
 
           def binding = [
             "envs": envs,
