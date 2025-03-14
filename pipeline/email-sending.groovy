@@ -37,7 +37,7 @@ pipeline() {
         script {
           def envs = ["dev", "test", "prod"]
   
-          def template = readFile "${env.WORKSPACE}/email-template/report.html"
+          def template = readFile "${env.WORKSPACE}/pipeline/email-template/report.html"
 
           def binding = [
             "envs": envs,
