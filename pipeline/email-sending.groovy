@@ -33,54 +33,32 @@ pipeline() {
     }
 
     stage('Sending email') {
-            steps {
-                script {
-                    // Create HTML table content
-                    def emailBody = "<html><body>"
-                    
-                    // Add tables for each environment
-                    def envs = ["dev", "test", "prod"]
-                    envs.each { env ->
-                        emailBody += "<h3>${env}</h3>"
-                        emailBody += "<table border='1' cellpadding='5'>"
-                        emailBody += "<tr><th>User</th><th>Expiry Date</th></tr>"
-                        
-                        // Add 15-day expiry users
-                        expiryDays15.each { user, days ->
-                            emailBody += "<tr><td>${user}</td><td>${days} days</td></tr>"
-                        }
-                        
-                        // Add 25-day expiry users
-                        expiryDays25.each { user, days ->
-                            emailBody += "<tr><td>${user}</td><td>${days} days</td></tr>"
-                        }
-                        
-                        emailBody += "</table><br>"
-                    }
-                    
-                    emailBody += "</body></html>"
+      steps {
+        script {
+          def envs = ["dev", "test", "prod"]
+          def template = readFile 'email-template.html'
 
-                    emailext (
-                        mimeType: 'text/html',
-                        body: emailBody,
-                        subject: 'User Expiry Report',
-                        from: 'tienky30082002@gmail.com',
-                        to: 'andy30082002@gmail.com'
-                    )
-                }
-            }
+          def binding = [
+            "envs": envs,
+            "expiry15": expiryDays15,
+            "expiry25": expiryDays25
+          ]
+          
+          def engine = new groovy.text.SimpleTemplateEngine()
+          def emailBody = engine.createTemplate(template).make(binding).toString()
+
+          emailext (
+            mimeType: 'text/html',
+            body: emailBody,
+            subject: 'User Expiry Report',
+            from: 'tienky30082002@gmail.com',
+            to: 'andy30082002@gmail.com'
+          )
         }
+      }
     }
+  }
 
-    // stage('Sending email') {
-    //   steps {
-    //     emailext mimeType: 'text/html'
-    //     body: 'Test Message',
-    //     subject: 'Test Subject',
-    //     from: 'tienky30082002@gmail.com'
-    //     to: 'andy30082002@gmail.com'
-    //   }
-    // }
     // stage('SSH') {
     //   steps {
     //     script {
@@ -99,7 +77,7 @@ pipeline() {
     //     }
     //   }
     // }
-  // }
+    
   post {
     always {
       cleanWs()
