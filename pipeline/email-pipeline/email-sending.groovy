@@ -45,6 +45,8 @@ pipeline() {
           def expiry25Json = groovy.json.JsonOutput.toJson(expiry25Days)
 
           sh """
+            python3 -m venv venv
+            source venv/bin/activate
             pip3 install -r pipeline/email-pipeline/requirements.txt
             python3 pipeline/email-pipeline/main.py '${expiry15Json}' '${expiry25Json}'
           """
