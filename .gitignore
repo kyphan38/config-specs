@@ -4,3 +4,4 @@
 **/remoting/
 **/pipeline@tmp/
 *.jar
+**/venv
