@@ -1,11 +1,9 @@
 #!/usr/bin/env groovy
 
 def expiry15Days = [:]
-def expiry15DaysFlag = False
+// def expiry15DaysFlag = False
 def expiry25Days = [:]
-def expiry25DaysFlag = False
-
-
+// def expiry25DaysFlag = False
 
 pipeline() {
   agent 'any'
