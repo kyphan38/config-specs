@@ -27,12 +27,13 @@ pipeline() {
             example_output["user_c"] = 15
 
             example_output.each { user, expiryDays ->
+              def userEntry = [username: user, password: expiryDays]
               if(expiryDays == 15) {
-                // expiry15Days[user] = expiryDays
-                expiry15Days[env] << [username: user, expiry: expiryDays]
+                if (!expiry15Days[env]) { expiry15Days[env] = []}
+                expiry15Days[env] << userEntry
               } else if (expiryDays == 25) {
-                // expiry25Days[user] = expiryDays
-                expiry25Days[env] << [username: user, expiry: expiryDays]
+                if (!expiry25Days[env]) { expiry15Days[env] = []}
+                expiry25Days[env] << userEntry
               }
             }
           }
