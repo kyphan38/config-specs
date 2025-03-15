@@ -1,7 +1,7 @@
 #!/usr/bin/env groovy
 
-def expiry15Days = [:]
-def expiry25Days = [:]
+def expiry15Days = []
+def expiry25Days = []
 def workingDir = "pipeline/email-pipeline"
 
 
