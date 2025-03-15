@@ -1,9 +1,9 @@
 #!/usr/bin/env groovy
 
 def expiry15Days = [:]
-// def expiry15DaysFlag = False
 def expiry25Days = [:]
-// def expiry25DaysFlag = False
+def workingDir = "pipeline/email-pipeline"
+
 
 pipeline() {
   agent 'any'
@@ -50,10 +50,10 @@ pipeline() {
 
           sh """
             #!/bin/bash
-            
-            source venv/bin/activate
-            pip3 install -r pipeline/email-pipeline/requirements.txt
-            python3 pipeline/email-pipeline/main.py '${expiry15Json}' '${expiry25Json}'
+
+            source ${workingDir}/venv/bin/activate
+            pip3 install -r ${workingDir}/requirements.txt
+            python3 ${workingDir}/main.py '${expiry15Json}' '${expiry25Json}'
           """
         }
       }
