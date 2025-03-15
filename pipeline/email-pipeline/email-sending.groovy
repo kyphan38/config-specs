@@ -29,10 +29,10 @@ pipeline() {
             example_output.each { user, expiryDays ->
               if(expiryDays == 15) {
                 // expiry15Days[user] = expiryDays
-                expiry15Days[env] = [username: user, expiry: expiryDays]
+                expiry15Days[env] << [username: user, expiry: expiryDays]
               } else if (expiryDays == 25) {
                 // expiry25Days[user] = expiryDays
-                expiry25Days[env] = [username: user, expiry: expiryDays]
+                expiry25Days[env] << [username: user, expiry: expiryDays]
               }
             }
           }
