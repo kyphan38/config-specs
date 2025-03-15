@@ -49,8 +49,8 @@ pipeline() {
           """
 
           sh """
-            #!/bin/bash
-
+            
+            python3 -m venv venv
             source ${workingDir}/venv/bin/activate
             pip3 install -r ${workingDir}/requirements.txt
             python3 ${workingDir}/main.py '${expiry15Json}' '${expiry25Json}'
