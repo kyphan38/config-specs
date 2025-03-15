@@ -72,11 +72,11 @@ pipeline() {
     }
   }
 
-  post {
-    always {
-      cleanWs()
-    }
-  }
+  // post {
+  //   always {
+  //     cleanWs()
+  //   }
+  // }
 }
 
     // stage('SSH') {
