@@ -45,14 +45,9 @@ pipeline() {
           def expiry25Json = groovy.json.JsonOutput.toJson(expiry25Days)
 
           sh """
-            which bash
-          """
-
-          sh """
-            
-            python3 -m venv ${workingDir}/venv
-            source ${workingDir}/venv/bin/activate
-            pip3 install -r ${workingDir}/requirements.txt
+            python3 -m venv ${workingDir}/venv && \\
+            source ${workingDir}/venv/bin/activate && \\
+            pip3 install -r ${workingDir}/requirements.txt && \\
             python3 ${workingDir}/main.py '${expiry15Json}' '${expiry25Json}'
           """
         }
