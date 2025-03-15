@@ -35,6 +35,8 @@ pipeline() {
               }
             }
           }
+          echo "${expiry15Days}"
+          echo "${expiry25Days}"
         }
       }
     }
@@ -42,14 +44,12 @@ pipeline() {
     stage('Prepare report') {
       steps {
         script {
-          writeFile file: "${workingDir}/expiry15.json", text: expiry15Days.inspect()
-          writeFile file: "${workingDir}/expiry25.json", text: expiry25Days.inspect()
 
           sh """
             python3 -m venv ${workingDir}/venv
             source ${workingDir}/venv/bin/activate
             pip3 install -r ${workingDir}/requirements.txt
-            python3 ${workingDir}/main.py "${workingDir}/expiry15.json" "${workingDir}/expiry25.json"
+            python3 ${workingDir}/test.py '${expiry15Days}' '${expiry25Days}'
           """
         }
       }
