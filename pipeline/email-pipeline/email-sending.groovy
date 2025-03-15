@@ -42,8 +42,10 @@ pipeline() {
     stage('Prepare report') {
       steps {
         script {
-          def expiry15Json = groovy.json.JsonOutput.toJson(expiry15Days)
-          def expiry25Json = groovy.json.JsonOutput.toJson(expiry25Days)
+          def jsonBuilder15 = new groovy.json.JsonBuilder(expiry15Days)
+          def jsonBuilder25 = new groovy.json.JsonBuilder(expiry25Days)
+          def expiry15Json = jsonBuilder15.toString()
+          def expiry25Json = jsonBuilder25.toString()
 
           sh """
             python3 -m venv ${workingDir}/venv
