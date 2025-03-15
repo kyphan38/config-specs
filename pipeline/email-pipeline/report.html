@@ -1,40 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <style>
-    table {
-      border-collapse: collapse;
-      margin-bottom: 20px;
-    }
-    th, td {
-      border: 1px solid black;
-      padding: 8px;
-      text-align: left;
-    }
-    th {
-      background-color: #f2f2f2;
-    }
-  </style>
+    <style>
+        table {
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
 <body>
-  <h3>User Expiry Report</h3>
-  <table>
-    <tr>
-      <th>User</th>
-      <th>Expiry Date</th>
-    </tr>
-    {% for user, days in expiry15.items() %}
-    <tr>
-      <td>{{ user }}</td>
-      <td>{{ days }} days</td>
-    </tr>
-    {% endfor %}
-    {% for user, days in expiry25.items() %}
-    <tr>
-      <td>{{ user }}</td>
-      <td>{{ days }} days</td>
-    </tr>
-    {% endfor %}
-  </table>
+    <h3>User Expiry Report</h3>
+    <table>
+        <tr>
+            <th>Username</th>
+            <th>Expiry Date</th>
+            <th>Environment</th>
+        </tr>
+        {% for entry in expiry15 %}
+        <tr>
+            <td>{{ entry.username }}</td>
+            <td>{{ entry.expiry }} days</td>
+            <td>{{ entry.env }}</td>
+        </tr>
+        {% endfor %}
+        {% for entry in expiry25 %}
+        <tr>
+            <td>{{ entry.username }}</td>
+            <td>{{ entry.expiry }} days</td>
+            <td>{{ entry.env }}</td>
+        </tr>
+        {% endfor %}
+    </table>
 </body>
 </html>

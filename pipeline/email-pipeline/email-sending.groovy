@@ -29,48 +29,46 @@ pipeline() {
             example_output.each { user, expiryDays ->
               def userEntry = [username: user, password: expiryDays]
               if (expiryDays == 15) {
-                expiry15Days << [username: user, expiry: expiryDays, env: env]
+                expiry15Days << [username: user, expiry: expiryDays, env: env] // List of Maps
               } else if (expiryDays == 25) {
                 expiry25Days << [username: user, expiry: expiryDays, env: env]
               }
             }
           }
-          echo "${expiry15Days}"
-          echo "${expiry25Days}"
         }
       }
     }
 
-    // stage('Prepare report') {
-    //   steps {
-    //     script {
-    //       def expiry15Json = groovy.json.JsonOutput.toJson(expiry15Days)
-    //       def expiry25Json = groovy.json.JsonOutput.toJson(expiry25Days)
+    stage('Prepare report') {
+      steps {
+        script {
+          def expiry15Json = groovy.json.JsonOutput.toJson(expiry15Days)
+          def expiry25Json = groovy.json.JsonOutput.toJson(expiry25Days)
 
-    //       sh """
-    //         python3 -m venv ${workingDir}/venv
-    //         source ${workingDir}/venv/bin/activate
-    //         pip3 install -r ${workingDir}/requirements.txt
-    //         python3 ${workingDir}/main.py '${expiry15Json}' '${expiry25Json}'
-    //       """
-    //     }
-    //   }
-    // }
+          sh """
+            python3 -m venv ${workingDir}/venv
+            source ${workingDir}/venv/bin/activate
+            pip3 install -r ${workingDir}/requirements.txt
+            python3 ${workingDir}/main.py '${expiry15Json}' '${expiry25Json}'
+          """
+        }
+      }
+    }
 
-    // stage('Sending email') {
-    //   steps {
-    //     script {
+    stage('Sending email') {
+      steps {
+        script {
           
-    //       emailext (
-    //         mimeType: 'text/html',
-    //         body: '${FILE,path="formatted-report.html"}',
-    //         subject: 'User Expiry Report',
-    //         from: 'tienky30082002@gmail.com',
-    //         to: 'andy30082002@gmail.com'
-    //       )
-    //     }
-    //   }
-    // }
+          emailext (
+            mimeType: 'text/html',
+            body: '${FILE,path="formatted-report.html"}',
+            subject: 'User Expiry Report',
+            from: 'tienky30082002@gmail.com',
+            to: 'andy30082002@gmail.com'
+          )
+        }
+      }
+    }
   }
 
   post {
