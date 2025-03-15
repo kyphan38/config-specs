@@ -42,16 +42,14 @@ pipeline() {
     stage('Prepare report') {
       steps {
         script {
-          def jsonBuilder15 = new groovy.json.JsonBuilder(expiry15Days)
-          def jsonBuilder25 = new groovy.json.JsonBuilder(expiry25Days)
-          def expiry15Json = jsonBuilder15.toString()
-          def expiry25Json = jsonBuilder25.toString()
+          writeFile file: "${workingDir}/expiry15.json", text: expiry15Days.inspect()
+          writeFile file: "${workingDir}/expiry25.json", text: expiry25Days.inspect()
 
           sh """
             python3 -m venv ${workingDir}/venv
             source ${workingDir}/venv/bin/activate
             pip3 install -r ${workingDir}/requirements.txt
-            python3 ${workingDir}/main.py '${expiry15Json}' '${expiry25Json}'
+            python3 ${workingDir}/main.py "${workingDir}/expiry15.json" "${workingDir}/expiry25.json"
           """
         }
       }
