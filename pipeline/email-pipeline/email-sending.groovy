@@ -45,8 +45,6 @@ pipeline() {
           def expiry25Json = groovy.json.JsonOutput.toJson(expiry25Days)
 
           sh """
-            apt-get update
-            apt-get install -y python3 python3-pip python3-venv
             python3 -m venv ${workingDir}/venv
             source ${workingDir}/venv/bin/activate
             pip3 install -r ${workingDir}/requirements.txt
@@ -72,11 +70,11 @@ pipeline() {
     }
   }
 
-  // post {
-  //   always {
-  //     cleanWs()
-  //   }
-  // }
+  post {
+    always {
+      cleanWs()
+    }
+  }
 }
 
     // stage('SSH') {

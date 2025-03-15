@@ -5,7 +5,7 @@ from jinja2 import Environment, FileSystemLoader
 def generate_report(expiry15, expiry25):
   # Set up Jinja2 environment
   env = Environment(loader=FileSystemLoader('.'))
-  template = env.get_template('report.html')
+  template = env.get_template('pipeline/email-pipeline/report.html')
   
   # Render the template with data
   html_content = template.render(
