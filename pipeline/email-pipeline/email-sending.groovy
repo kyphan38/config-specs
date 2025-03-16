@@ -58,9 +58,11 @@ pipeline() {
     stage('Sending email') {
       steps {
         script {
+          def reportPath = "${workingDir}/email-report.html"
+
           emailext (
             mimeType: 'text/html',
-            body: '${FILE,path="email-report.html"}',
+            body: '${FILE,path="' + reportPath + '"}',
             subject: 'User Expiry Report',
             from: 'tienky30082002@gmail.com',
             to: 'andy30082002@gmail.com'
