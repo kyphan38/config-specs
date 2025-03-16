@@ -28,9 +28,9 @@ pipeline() {
 
             example_output.each { user, expiryDays ->
               if (expiryDays == 15) {
-                expiry15Days << ["username": user, "expiry": expiryDays, "env": env] // List of Maps
+                expiry15Days << ["username": user "expiry": expiryDays "env": env] // List of Maps
               } else if (expiryDays == 25) {
-                expiry25Days << ["username": user, "expiry": expiryDays, "env": env]
+                expiry25Days << ["username": user "expiry": expiryDays "env": env]
               }
             }
           }
