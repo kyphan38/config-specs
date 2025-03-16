@@ -1,9 +1,9 @@
 #!/usr/bin/env groovy
 
-// String expiry15Days = "[[username:a-db-user-1, expiry:7, env:a], [username:a-db-user-2, expiry:3, env:a], [username:b-db-user-1, expiry:4, env:b], [username:b-db-user-2, expiry:7, env:b], [username:c-db-user-1, expiry:1, env:c], [username:c-db-user-2, expiry:2, env:c"
-// String expiry25Days = "[[username:a-db-user-3, expiry:15, env:a], [username:b-db-user-3, expiry:15, env:b], [username:c-db-user-3, expiry:15, env:c]]"
-def expiry15Days = []
-def expiry25Days = []
+String expiry15Days = "[[username:a-db-user-1, expiry:7, env:a], [username:a-db-user-2, expiry:3, env:a], [username:b-db-user-1, expiry:4, env:b], [username:b-db-user-2, expiry:7, env:b], [username:c-db-user-1, expiry:1, env:c], [username:c-db-user-2, expiry:2, env:c"
+String expiry25Days = "[[username:a-db-user-3, expiry:15, env:a], [username:b-db-user-3, expiry:15, env:b], [username:c-db-user-3, expiry:15, env:c]]"
+// def expiry15Days = []
+// def expiry25Days = []
 String workingDir = "pipeline/email-pipeline"
 String templatePath = "templates/raw-email-report.html"
 String templateOutputPath = "email-report.html"
