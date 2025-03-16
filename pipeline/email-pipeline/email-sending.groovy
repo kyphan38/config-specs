@@ -35,8 +35,8 @@ pipeline() {
             mimeType: 'text/html',
             body: '${FILE,path="' + reportPath + '"}',
             subject: 'User Expiry Report',
-            from: 'tienky30082002@gmail.com',
-            to: 'andy30082002@gmail.com'
+            from: 'a@gmail.com',
+            to: 'b@gmail.com'
           )
         }
       }

@@ -42,8 +42,6 @@ if __name__ == "__main__":
   expiry_within_7_users = parse_string_to_dicts(expiry_within_7_string)
   expiry_within_15_users = parse_string_to_dicts(expiry_within_15_string)
   
-  template_path = "./templates/raw-email-report.html"
-  output_path = "email-report.html"
   html_content = generate_html_report(expiry_within_7_users, expiry_within_15_users, template_path, output_path)
   
   print("Report generated successfully at:", output_path)
