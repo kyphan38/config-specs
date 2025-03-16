@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<head>
+  <style>
+    body { font-family: sans-serif; font-size: 12px; padding: 0; margin: 0; color: #000000; font-weight: normal; }
+    table { border-collapse: collapse; margin-bottom: 20px; max-width: 100%; overflow-x: auto; display: block; }
+    h1 { color: #ff0000; }
+    h3 { color: #000000; }
+    th, td { border: 1px solid #000000; padding: 8px; text-align: left; }
+    th { background-color: #000000; color: #ffffff; }
+    td { background-color: #ffffff; color: #000000; }
+    tr:nth-child(even) td { background-color: #f2f2f2; }
+</style>
+</head>
+<body>
+  <h1>Database User Expiry Report</h1>
+  <h3>Database Users Expiring Within 7 Days</h3>
+  <table>
+    <tr>
+      <th>Database User</th>
+      <th>Days Until Expiry</th>
+      <th>Environment</th>
+    </tr>
+    <tr>
+      <td>a-db-user-1</td>
+      <td>7 days</td>
+      <td>a</td>
+    </tr>
+    <tr>
+      <td>a-db-user-2</td>
+      <td>3 days</td>
+      <td>a</td>
+    </tr>
+    <tr>
+      <td>b-db-user-1</td>
+      <td>4 days</td>
+      <td>b</td>
+    </tr>
+    <tr>
+      <td>b-db-user-2</td>
+      <td>7 days</td>
+      <td>b</td>
+    </tr>
+    <tr>
+      <td>c-db-user-1</td>
+      <td>1 days</td>
+      <td>c</td>
+    </tr>
+    <tr>
+      <td>c-db-user-2</td>
+      <td>2 days</td>
+      <td>c</td>
+    </tr>
+  </table>
+  <h3>Database Users Expiring Within 15 Days</h3>
+  <table>
+    <tr>
+      <th>Database User</th>
+      <th>Days Until Expiry</th>
+      <th>Environment</th>
+    </tr>
+    <tr>
+      <td>a-db-user-3</td>
+      <td>15 days</td>
+      <td>a</td>
+    </tr>
+    <tr>
+      <td>b-db-user-3</td>
+      <td>15 days</td>
+      <td>b</td>
+    </tr>
+    <tr>
+      <td>c-db-user-3</td>
+      <td>15 days</td>
+      <td>c</td>
+    </tr>
+  </table>
+</body>

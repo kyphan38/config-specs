@@ -1,31 +1,20 @@
-# import sys
-# import json
-# from jinja2 import Environment, FileSystemLoader
+import ast
 
-# def generate_report(expiry15, expiry25):
-#     # Set up Jinja2 environment
-#     env = Environment(loader=FileSystemLoader('.'))
-#     template = env.get_template('pipeline/email-pipeline/report.html')
-    
-#     # Render the template with data
-#     html_content = template.render(
-#         expiry15=expiry15,
-#         expiry25=expiry25
-#     )
-    
-#     # Write to output file
-#     with open('formatted-report.html', 'w') as f:
-#         f.write(html_content)
+def extract_data(data):
+  # First, replace the colon-separated items with key-value pairs in dictionary format
+  data = data.replace('username:', '"username":').replace('expiry:', '"expiry":').replace('env:', '"env":')
+  
+  # Convert the string representation of the list to an actual list using ast.literal_eval
+  data_list = ast.literal_eval(data)
+  
+  return data_list
 
-# if __name__ == "__main__":
-#     if len(sys.argv) != 3:
-#         print("Usage: python main.py <expiry15_json> <expiry25_json>")
-#         sys.exit(1)
-    
-#     # Parse JSON arguments
-#     expiry15 = json.loads(sys.argv[1])  # Now a list of dictionaries
-#     expiry25 = json.loads(sys.argv[2])  # Now a list of dictionaries
-    
-#     # Generate the report
-#     generate_report(expiry15, expiry25)
 
+if __name__ == "__main__":
+  expiry_within_7 = "[[username:a-db-user-1, expiry:7, env:a], [username:a-db-user-2, expiry:3, env:a], [username:b-db-user-1, expiry:4, env:b], [username:b-db-user-2, expiry:7, env:b], [username:c-db-user-1, expiry:1, env:c], [username:c-db-user-2, expiry:2, env:c]]"
+  expiry_within_15 = "[[username:a-db-user-3, expiry:15, env:a], [username:b-db-user-3, expiry:15, env:b], [username:c-db-user-3, expiry:15, env:c]]"
+
+  expiry_within_7_data = extract_data(expiry_within_7)
+  expiry_within_15_data = extract_data(expiry_within_15)
+  print(expiry_within_7_data)
+  

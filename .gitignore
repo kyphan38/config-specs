@@ -5,3 +5,4 @@
 **/pipeline@tmp/
 *.jar
 **/venv
+**/__pycache__

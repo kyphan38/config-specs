@@ -1,43 +1,20 @@
 <!DOCTYPE html>
-<html>
 <head>
-    <style>
-        table {
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-    </style>
+  <style>
+    body { font-family: sans-serif; font-size: 12px; padding: 0; margin: 0; color: #000000; font-weight: normal; }
+    table { border-collapse: collapse; margin-bottom: 20px; max-width: 100%; overflow-x: auto; display: block; }
+    h1 { color: #ff0000; }
+    h3 { color: #000000; }
+    th, td { border: 1px solid #000000; padding: 8px; text-align: left; }
+    th { background-color: #000000; color: #ffffff; }
+    td { background-color: #ffffff; color: #000000; }
+    tr:nth-child(even) td { background-color: #f2f2f2; }
+  </style>
 </head>
 <body>
-    <h3>User Expiry Report</h3>
-    <table>
-        <tr>
-            <th>Username</th>
-            <th>Expiry Date</th>
-            <th>Environment</th>
-        </tr>
-        {% for entry in expiry15 %}
-        <tr>
-            <td>{{ entry.username }}</td>
-            <td>{{ entry.expiry }} days</td>
-            <td>{{ entry.env }}</td>
-        </tr>
-        {% endfor %}
-        {% for entry in expiry25 %}
-        <tr>
-            <td>{{ entry.username }}</td>
-            <td>{{ entry.expiry }} days</td>
-            <td>{{ entry.env }}</td>
-        </tr>
-        {% endfor %}
-    </table>
+  <h1>Database User Expiry Report</h1>
+  
+  
+
+  
 </body>
-</html>
