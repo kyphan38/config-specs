@@ -1,44 +1,44 @@
 #!/usr/bin/env groovy
 
-def expiry15Days = []
-def expiry25Days = []
-def workingDir = "pipeline/email-pipeline"
+String expiry15Days = "[[username:a-db-user-1, expiry:7, env:a], [username:a-db-user-2, expiry:3, env:a], [username:b-db-user-1, expiry:4, env:b], [username:b-db-user-2, expiry:7, env:b], [username:c-db-user-1, expiry:1, env:c], [username:c-db-user-2, expiry:2, env:c"
+String expiry25Days = "[[username:a-db-user-3, expiry:15, env:a], [username:b-db-user-3, expiry:15, env:b], [username:c-db-user-3, expiry:15, env:c]]"
+String workingDir = "pipeline/email-pipeline"
 
 
 pipeline() {
   agent 'any'
 
   stages {
-    stage('Execute') {
-      steps {
-        script {
-          def envs = ["dev", "test", "nonprod", "prod"]
+    // stage('Execute') {
+    //   steps {
+    //     script {
+    //       def envs = ["dev", "test", "nonprod", "prod"]
 
-          for (env in envs) {
+    //       for (env in envs) {
 
-            // example_output is a map
-            def example_output = [:]
+    //         // example_output is a map
+    //         def example_output = [:]
 
-            example_output["user_a"] = 25
-            if (env == "test") {
-              example_output["user_a"] = 15
-            }
-            example_output["user_b"] = 25
-            example_output["user_c"] = 15
+    //         example_output["user_a"] = 25
+    //         if (env == "test") {
+    //           example_output["user_a"] = 15
+    //         }
+    //         example_output["user_b"] = 25
+    //         example_output["user_c"] = 15
 
-            example_output.each { user, expiryDays ->
-              if (expiryDays == 15) {
-                expiry15Days << ["username": user, "expiry": expiryDays, "env": env] // List of Maps
-              } else if (expiryDays == 25) {
-                expiry25Days << ["username": user, "expiry": expiryDays, "env": env]
-              }
-            }
-          }
-          echo "${expiry15Days}"
-          echo "${expiry25Days}"
-        }
-      }
-    }
+    //         example_output.each { user, expiryDays ->
+    //           if (expiryDays == 15) {
+    //             expiry15Days << ["username": user, "expiry": expiryDays, "env": env] // List of Maps
+    //           } else if (expiryDays == 25) {
+    //             expiry25Days << ["username": user, "expiry": expiryDays, "env": env]
+    //           }
+    //         }
+    //       }
+    //       echo "${expiry15Days}"
+    //       echo "${expiry25Days}"
+    //     }
+    //   }
+    // }
 
     stage('Prepare report') {
       steps {
@@ -48,7 +48,7 @@ pipeline() {
             python3 -m venv ${workingDir}/venv
             source ${workingDir}/venv/bin/activate
             pip3 install -r ${workingDir}/requirements.txt
-            python3 ${workingDir}/test.py '${expiry15Days}' '${expiry25Days}'
+            python3 ${workingDir}/main.py '${expiry15Days}' '${expiry25Days}'
           """
         }
       }
@@ -57,10 +57,9 @@ pipeline() {
     stage('Sending email') {
       steps {
         script {
-          
           emailext (
             mimeType: 'text/html',
-            body: '${FILE,path="formatted-report.html"}',
+            body: '${FILE,path="email-report.html"}',
             subject: 'User Expiry Report',
             from: 'tienky30082002@gmail.com',
             to: 'andy30082002@gmail.com'

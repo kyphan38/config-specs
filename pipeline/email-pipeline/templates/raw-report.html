@@ -9,12 +9,10 @@
     th { background-color: #000000; color: #ffffff; }
     td { background-color: #ffffff; color: #000000; }
     tr:nth-child(even) td { background-color: #f2f2f2; }
-  </style>
+</style>
 </head>
 <body>
   <h1>Database User Expiry Report</h1>
-  
-  {% if expiry_within_7 %}
   <h3>Database Users Expiring Within 7 Days</h3>
   <table>
     <tr>
@@ -22,17 +20,37 @@
       <th>Days Until Expiry</th>
       <th>Environment</th>
     </tr>
-    {% for user in expiry_within_7 %}
     <tr>
-      <td>{{ user.username }}</td>
-      <td>{{ user.expiry }} days</td>
-      <td>{{ user.env }}</td>
+      <td>a-db-user-1</td>
+      <td>7 days</td>
+      <td>a</td>
     </tr>
-    {% endfor %}
+    <tr>
+      <td>a-db-user-2</td>
+      <td>3 days</td>
+      <td>a</td>
+    </tr>
+    <tr>
+      <td>b-db-user-1</td>
+      <td>4 days</td>
+      <td>b</td>
+    </tr>
+    <tr>
+      <td>b-db-user-2</td>
+      <td>7 days</td>
+      <td>b</td>
+    </tr>
+    <tr>
+      <td>c-db-user-1</td>
+      <td>1 days</td>
+      <td>c</td>
+    </tr>
+    <tr>
+      <td>c-db-user-2</td>
+      <td>2 days</td>
+      <td>c</td>
+    </tr>
   </table>
-  {% endif %}
-
-  {% if expiry_within_15 %}
   <h3>Database Users Expiring Within 15 Days</h3>
   <table>
     <tr>
@@ -40,13 +58,20 @@
       <th>Days Until Expiry</th>
       <th>Environment</th>
     </tr>
-    {% for user in expiry_within_15 %}
     <tr>
-      <td>{{ user.username }}</td>
-      <td>{{ user.expiry }} days</td>
-      <td>{{ user.env }}</td>
+      <td>a-db-user-3</td>
+      <td>15 days</td>
+      <td>a</td>
     </tr>
-    {% endfor %}
+    <tr>
+      <td>b-db-user-3</td>
+      <td>15 days</td>
+      <td>b</td>
+    </tr>
+    <tr>
+      <td>c-db-user-3</td>
+      <td>15 days</td>
+      <td>c</td>
+    </tr>
   </table>
-  {% endif %}
 </body>
