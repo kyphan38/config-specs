@@ -45,10 +45,11 @@ pipeline() {
         script {
 
           sh """
-            python3 -m venv ${workingDir}/venv
-            source ${workingDir}/venv/bin/activate
-            pip3 install -r ${workingDir}/requirements.txt
-            python3 ${workingDir}/main.py '${expiry15Days}' '${expiry25Days}'
+            cd ${workingDir}
+            python3 -m venv venv
+            source venv/bin/activate
+            pip3 install -r requirements.txt
+            python3 main.py '${expiry15Days}' '${expiry25Days}' 'templates/raw-email-report.html' 'email-report.html' 
           """
         }
       }

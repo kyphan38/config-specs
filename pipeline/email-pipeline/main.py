@@ -36,6 +36,8 @@ def generate_html_report(expiry_within_7_users, expiry_within_15_users, template
 if __name__ == "__main__":
   expiry_within_7_string = sys.argv[1]
   expiry_within_15_string = sys.argv[2]
+  template_path = sys.argv[3]
+  output_path = sys.argv[4]
 
   expiry_within_7_users = parse_string_to_dicts(expiry_within_7_string)
   expiry_within_15_users = parse_string_to_dicts(expiry_within_15_string)
