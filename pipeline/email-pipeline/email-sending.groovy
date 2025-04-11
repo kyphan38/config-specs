@@ -21,6 +21,7 @@ pipeline() {
             source venv/bin/activate
             pip3 install -r requirements.txt
             python3 main.py '${expiry15Days}' '${expiry25Days}' '${templatePath}' '${templateOutputPath}'
+            cat '${templateOutputPath}'
           """
         }
       }
