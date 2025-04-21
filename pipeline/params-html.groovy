@@ -6,7 +6,7 @@ pipeline {
     choice(
       name: 'ACTION',
       choices: ['get', 'put'],
-      description: 'Select action: get or put secret'
+      description: 'Select action'
     )
 
     // PATH - General
