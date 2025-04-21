@@ -35,11 +35,11 @@ pipeline {
     string(
       name: 'SECRET_PATH',
       defaultValue: '', 
-      description: '(SKIP if using APP/ENV). Enter the ful path - Overrides APP/ENV'
+      description: '(SKIP if using APP/ENV). Enter the ful path and OVERRIDE APP/ENV'
     )
 
     // PUT 
-    activeChoiceHtml(name: 'SECRET_KEY', choiceType: 'ET_FORMATTED_HTML', referencedParameters: 'ACTION', omitValueField: true, description: '(SKIP if uploading a FILE) Enter the key name. ',
+    activeChoiceHtml(name: 'SECRET_KEY', choiceType: 'ET_FORMATTED_HTML', referencedParameters: 'ACTION', omitValueField: true, description: '(SKIP if uploading a FILE). Enter the key name. ',
       script: [$class: 'GroovyScript', script: [classpath: [], sandbox: true,
         script: '''
           if (ACTION == "put") {
@@ -71,7 +71,7 @@ pipeline {
       ]
     )
 
-    stashedFile (name: 'data', description: 'Upload a JSON file with key/value pairs - Overrides SECRET_KEY/VALUE inputs')
+    stashedFile (name: 'data', description: 'Upload a JSON file with key/value pairs and OVERRIDE SECRET_KEY/VALUE inputs')
   }
 
   stages {
