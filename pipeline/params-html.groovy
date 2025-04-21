@@ -35,7 +35,7 @@ pipeline {
     string(
       name: 'SECRET_PATH',
       defaultValue: '', 
-      description: 'Enter the full path and OVERRIDE APP/ENV. (SKIP if using APP/ENV)'
+      description: 'Enter the full path and OVERRIDE APP/ENV input. (SKIP if using APP/ENV)'
     )
 
     // PUT 
