@@ -12,7 +12,7 @@ pipeline {
     // PATH - General
     choice(
       name: 'APP',
-      description: 'Select application used',
+      description: 'Select application',
       choices: [
         'ab/app-a',
         'ab/app-b',
@@ -35,7 +35,7 @@ pipeline {
     string(
       name: 'SECRET_PATH',
       defaultValue: '', 
-      description: 'Or enter full secret path (overrides APP/ENV if not blank)'
+      description: 'OVERRIDE: Enter full secret path instead of using APP/ENV)'
     )
 
     // PUT 
@@ -55,7 +55,7 @@ pipeline {
       ]
     )
 
-    activeChoiceHtml(name: 'SECRET_VALUE', choiceType: 'ET_FORMATTED_HTML', referencedParameters: 'ACTION', omitValueField: true, description: 'EEnter the secret value. SKIP if uploading a FILE',
+    activeChoiceHtml(name: 'SECRET_VALUE', choiceType: 'ET_FORMATTED_HTML', referencedParameters: 'ACTION', omitValueField: true, description: 'Enter the secret value. SKIP if uploading a FILE',
       script: [$class: 'GroovyScript', script: [classpath: [], sandbox: true,
         script: '''
           if (ACTION == "put") {
