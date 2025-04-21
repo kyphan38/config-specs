@@ -6,12 +6,13 @@ pipeline {
     choice(
       name: 'ACTION',
       choices: ['get', 'put'],
-      description: 'Select an action'
+      description: 'Select action: get or put secret'
     )
 
     // PATH - General
     choice(
-      name: 'REPO',
+      name: 'APP',
+      description: 'Select application used'
       choices: [
         'ab/app-a',
         'ab/app-b',
@@ -23,6 +24,7 @@ pipeline {
 
     choice(
       name: 'ENV',
+      description: 'Select enviroment'
       choices: [
         'dev',
         'test',
@@ -33,11 +35,11 @@ pipeline {
     string(
       name: 'SECRET_PATH',
       defaultValue: '', 
-      description: 'Leave blanks if you used above'
+      description: 'Or enter full secret path (overrides APP/ENV if not blank)'
     )
 
     // PUT 
-    activeChoiceHtml(name: 'SECRET_KEY', choiceType: 'ET_FORMATTED_HTML', referencedParameters: 'ACTION', omitValueField: true, description: 'Enter key the name. SKIP for uploading FILE',
+    activeChoiceHtml(name: 'SECRET_KEY', choiceType: 'ET_FORMATTED_HTML', referencedParameters: 'ACTION', omitValueField: true, description: 'Enter the key name. SKIP if uploading a FILE',
       script: [$class: 'GroovyScript', script: [classpath: [], sandbox: true,
         script: '''
           if (ACTION == "put") {
@@ -53,7 +55,7 @@ pipeline {
       ]
     )
 
-    activeChoiceHtml(name: 'SECRET_VALUE', choiceType: 'ET_FORMATTED_HTML', referencedParameters: 'ACTION', omitValueField: true, description: 'Enter key the name. SKIP for uploading FILE',
+    activeChoiceHtml(name: 'SECRET_VALUE', choiceType: 'ET_FORMATTED_HTML', referencedParameters: 'ACTION', omitValueField: true, description: 'EEnter the secret value. SKIP if uploading a FILE',
       script: [$class: 'GroovyScript', script: [classpath: [], sandbox: true,
         script: '''
           if (ACTION == "put") {
@@ -69,7 +71,7 @@ pipeline {
       ]
     )
 
-    stashedFile (name: 'data', description: 'JSON file contains key and value. NOT: dataJson parameter will be higher priority than manual input')
+    stashedFile (name: 'data', description: 'Upload a JSON file with key/value pairs (overrides manual key/value)')
   }
 
   stages {
