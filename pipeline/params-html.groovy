@@ -35,7 +35,7 @@ pipeline {
     string(
       name: 'SECRET_PATH',
       defaultValue: '', 
-      description: 'Enter the full path and OVERRIDE APP/ENV input. (SKIP if using APP/ENV)'
+      description: 'Enter the full path to override APP/ENV input (e.g., abc/abc). (SKIP if using APP/ENV)'
     )
 
     // PUT 
@@ -71,7 +71,7 @@ pipeline {
       ]
     )
 
-    stashedFile (name: 'data', description: 'Upload a JSON file with key/value pairs and OVERRIDE SECRET_KEY/VALUE input')
+    stashedFile (name: 'data', description: 'Upload a JSON file with key/value pairs to override SECRET_KEY/VALUE input')
   }
 
   stages {
