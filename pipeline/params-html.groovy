@@ -35,7 +35,7 @@ pipeline {
     string(
       name: 'SECRET_PATH',
       defaultValue: '', 
-      description: 'OVERRIDE: Enter the ful path. SKIP if using above APP/ENV'
+      description: 'Enter the ful path. SKIP if using above APP/ENV'
     )
 
     // PUT 
@@ -71,7 +71,7 @@ pipeline {
       ]
     )
 
-    stashedFile (name: 'data', description: 'OVERRIDE: Upload a JSON file with key/value pairs')
+    stashedFile (name: 'data', description: 'Upload a **JSON** file with key/value pairs')
   }
 
   stages {
