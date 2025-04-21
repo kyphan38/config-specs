@@ -35,11 +35,11 @@ pipeline {
     string(
       name: 'SECRET_PATH',
       defaultValue: '', 
-      description: 'Enter the ful path - Overrides APP/ENV - [SKIP if using APP/ENV]'
+      description: '(SKIP if using APP/ENV). Enter the ful path - Overrides APP/ENV'
     )
 
     // PUT 
-    activeChoiceHtml(name: 'SECRET_KEY', choiceType: 'ET_FORMATTED_HTML', referencedParameters: 'ACTION', omitValueField: true, description: 'Enter the key name. [SKIP if uploading a FILE]',
+    activeChoiceHtml(name: 'SECRET_KEY', choiceType: 'ET_FORMATTED_HTML', referencedParameters: 'ACTION', omitValueField: true, description: '(SKIP if uploading a FILE) Enter the key name. ',
       script: [$class: 'GroovyScript', script: [classpath: [], sandbox: true,
         script: '''
           if (ACTION == "put") {
@@ -55,7 +55,7 @@ pipeline {
       ]
     )
 
-    activeChoiceHtml(name: 'SECRET_VALUE', choiceType: 'ET_FORMATTED_HTML', referencedParameters: 'ACTION', omitValueField: true, description: 'Enter the secret value - [SKIP if uploading a FILE]',
+    activeChoiceHtml(name: 'SECRET_VALUE', choiceType: 'ET_FORMATTED_HTML', referencedParameters: 'ACTION', omitValueField: true, description: '(SKIP if uploading a FILE). Enter the secret value',
       script: [$class: 'GroovyScript', script: [classpath: [], sandbox: true,
         script: '''
           if (ACTION == "put") {
