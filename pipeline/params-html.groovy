@@ -12,7 +12,7 @@ pipeline {
     // PATH - General
     choice(
       name: 'APP',
-      description: 'Select application used'
+      description: 'Select application used',
       choices: [
         'ab/app-a',
         'ab/app-b',
@@ -24,7 +24,7 @@ pipeline {
 
     choice(
       name: 'ENV',
-      description: 'Select enviroment'
+      description: 'Select enviroment',
       choices: [
         'dev',
         'test',
