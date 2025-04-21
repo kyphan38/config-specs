@@ -71,7 +71,7 @@ pipeline {
       ]
     )
 
-    stashedFile (name: 'data', description: 'Upload a JSON file with key/value pairs and OVERRIDE SECRET_KEY/VALUE inputs')
+    stashedFile (name: 'data', description: 'Upload a JSON file with key/value pairs and OVERRIDE SECRET_KEY/VALUE input')
   }
 
   stages {
