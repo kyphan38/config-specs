@@ -6,3 +6,4 @@
 *.jar
 **/venv
 **/__pycache__
+**/jenkins-parameters@script/
