@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: sans-serif;
+      font-size: 12px;
+      padding: 0;
+      margin: 0;
+      color: #000000;
+      background-color: #FFFFFF;
+    }
+    h2 {
+      color: red;
+      font-size: 15px;
+      font-weight: bold;
+    }
+    table {
+      border-collapse: collapse;
+      margin-bottom: 20px;
+      max-width: 100%;
+      overflow-x: auto;
+      background-color: #FFFFFF;
+      border: 1px solid #000000;
+    }
+
+    th, td {
+      border: 1px solid #000000; /* Requirement: all border in black of the table */
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #000000;
+      color: #FFFFFF;
+      font-weight: bold;
+    }
+    td {
+      /* Requirement: since second row of the table: black text in white background */
+      background-color: #ffffff;
+      color: #000000;
+    }
+    
+    table tr:first-child th {
+      background-color: #000000; /* Black background */
+      color: #FFFFFF; /* White text */
+    }
+
+    table tr:nth-child(2) th {
+      background-color: #f0f0f0;
+      color: #000000;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  {# Define a macro to render a data table #}
+  {% macro render_data_table(data_dict) %}
+  <table>
+    <tr>
+      {# Loop for keys #}
+      {% for key, _ in data_dict.items() %}
+        <th>{{ key }}</th>
+      {% endfor %}
+    </tr>
+    <tr>
+      {# Loop for values, using 'value' as variable name for clarity within macro #}
+      {% for _, value in data_dict.items() %}
+        <th>{{ value }}</th>
+      {% endfor %}
+    </tr>
+  </table>
+  {% endmacro %}
+
+  <h1>VVV/CCC Report</h1>
+
+  <h2>VVV</h2>
+  {{ render_data_table(VVV_main_data) }}
+  {{ render_data_table(VVV_processed_data) }}
+  {{ render_data_table(VVV_main_specific_status_count) }}
+
+  <h2>CCC</h2>
+  {{ render_data_table(CCC_main_data) }}
+  {{ render_data_table(CCC_processed_data) }}
+  {{ render_data_table(CCC_main_specific_status_count) }}
+
+</body>
+</html>
