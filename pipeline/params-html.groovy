@@ -77,8 +77,12 @@ pipeline {
   stages {
     stage('Setup Parameters') {
       steps {
-        echo "States selected: ${params.States}"
-        echo "Action selected: ${params.ACTION}"
+        script {
+          sh """
+            pwd
+            ls -lah
+          """
+        }
       }
     }
   }
