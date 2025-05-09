@@ -79,9 +79,18 @@ pipeline {
       steps {
         script {
           sh """
-            pwd
-            ls -lah
+            env
           """
+          if(env.dataJson_FILENAME) {
+            sh """
+              ls -lah
+            """
+            unstash 'data'
+            sh """
+              echo "Stash file name: ${env.dataJson_FILENAME}"
+              ls -lah
+            """
+          }
         }
       }
     }
