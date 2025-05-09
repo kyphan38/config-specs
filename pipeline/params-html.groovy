@@ -80,17 +80,12 @@ pipeline {
         script {
           sh """
             env
+            ls -lah
           """
-          if(env.dataJson_FILENAME) {
-            sh """
-              ls -lah
-            """
-            unstash 'data'
-            sh """
-              echo "Stash file name: ${env.dataJson_FILENAME}"
-              ls -lah
-            """
-          }
+          unstash 'data'
+          sh """
+            ls -lah
+          """
         }
       }
     }
