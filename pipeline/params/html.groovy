@@ -77,8 +77,16 @@ pipeline {
   stages {
     stage('Setup Parameters') {
       steps {
-        echo "States selected: ${params.States}"
-        echo "Action selected: ${params.ACTION}"
+        script {
+          sh """
+            env
+            ls -lah
+          """
+          unstash 'data'
+          sh """
+            ls -lah
+          """
+        }
       }
     }
   }
