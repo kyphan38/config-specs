@@ -1,3 +1,9 @@
+import java.time.LocalDate
+
+// Get current date
+def today = LocalDate.now()
+String fileName = "abc_${today.getMonthValue()}_${today.getDayOfMonth()}"
+
 pipeline {
   agent any
 
@@ -31,6 +37,7 @@ pipeline {
     stage('Setup Parameters') {
       steps {
         script {
+          echo "fileName: ${fileName}"
           sh """
             env
             ls -lah
@@ -40,6 +47,16 @@ pipeline {
             ls -lah
           """
         }
+      }
+    }
+
+    stage('Do Action') {
+      when {
+        expression { params.ACTION == true }
+      }
+      steps {
+        echo "ACTION is true, performing PUT operation..."
+        // Add your PUT logic here
       }
     }
   }
